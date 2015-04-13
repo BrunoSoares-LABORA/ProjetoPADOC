@@ -1,0 +1,58 @@
+<script>
+	$(function() {
+		$( ".inputDate" ).datepicker( {
+			dateFormat: "dd/mm/yy",
+			showButtonPanel: true,
+			currentText: "Hoje",
+			closeText: "Fechar",
+			dayNamesMin: [ "Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab" ],
+			monthNames: [
+				"Janeiro",
+				"Fevereiro",
+				"Março",
+				"Abril",
+				"Maio",
+				"Junho",
+				"Julho",
+				"Agosto",
+				"Setembro",
+				"Outubro",
+				"Novembro",
+				"Dezembro"
+			]
+		} );
+		$(".inputDate").mask("99/99/9999");
+	});
+</script>
+
+<div class="title">
+	<span>Consultar docente</span>
+</div>
+
+<form>
+	<table>
+		<tr>
+			<td>Usuário:</td>
+			<td colspan="3"><input type="text" name="username" /></td>
+		</tr>
+		<tr>
+			<td>Senha:</td>
+			<td colspan="3"><input type="password" name="password" /></td>
+		</tr>
+		<tr>
+			<td>Matrícula SIAPE:</td>
+			<td colspan="3"><input type="text" name="siape" /></td>
+		</tr>
+		<tr>
+			<td>Período:</td>
+			<td><input class="inputDate" /></td>
+			<td>-</td>
+			<td><input class="inputDate" /></td>
+		</tr>
+		<tr>
+			<td colspan="4">
+				<input type="button" value="Consultar" onclick="pageController.loadPage( 'teste', False )">
+			</td>
+		</tr>
+	</table>
+</form>

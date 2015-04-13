@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Portal PADOC</title>
+		<link href="css/style.css" rel="stylesheet" type="text/css"/>
+		<link href="css/jquery-ui/jquery-ui.css" rel="stylesheet" type="text/css"/>
+		<script language="javascript" type="text/javascript" src="js/jquery/jquery-1.11.2.min.js"></script>
+		<script language="javascript" type="text/javascript" src="js/jquery/jquery-migrate-1.2.1.min.js"></script>
+		<script language="javascript" type="text/javascript" src="js/jquery/jquery.maskedinput.js"></script>
+		<script language="javascript" type="text/javascript" src="js/jquery/jquery-ui.js"></script>
+		<script language="javascript" type="text/javascript" src="js/classes/pageController.js"></script>
+		<script language="javascript" type="text/javascript" src="js/main.js"></script>
+	</head>
+	
+	<body>
+		<div id="wrapper">
+			<div id="header">
+				<div class="web_content float_adjustment">
+					<div class="text_logo float3_1">
+						SICAD
+					</div>
+					<div class="float3_2">
+						<span>Universidade Federal de Goiás</span>
+						<span>Sistema de Cadastro de Atividades Docentes</span>
+					</div>
+					<div class="float3_3">
+						<img src="images/logo_ufg.png"/>
+					</div>
+				</div>
+			</div>
+			
+			<div class="web_content top_menu">
+				<a href="#">Adicionar</a>
+				<a href="#">Remover</a>
+			</div>
+			
+			<div id="body" class="web_content float_adjustment">
+				<div class="body_left">
+					<div class="vertical_menu float_adjustment">
+						<a href="javascript:void(0)" onclick="pageController.loadPage( 'consulta_docente', this )">Consultar novo docente</a>
+						<a href="javascript:void(0)" onclick="pageController.loadPage( 'visualiza_relatorio', this )">Visualizar relatório</a>
+						<a href="javascript:void(0)" onclick="pageController.loadPage( 'ver_modificacoes', this )">Ver modificações</a>
+					</div>
+				</div>
+				
+				<div class="body_right">
+					<div id="loading">
+						<div>
+							<img src="images/loading.gif" />
+							<span>Carregando...</span>
+						</div>
+					</div>
+					
+					<div id="pages_content">
+					
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
