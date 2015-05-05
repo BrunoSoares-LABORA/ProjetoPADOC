@@ -1,12 +1,13 @@
 function pageController ( vPageContent, vloading ) {
-	var lastPage;
+	this.lastPage = null;
+	
 	var pageContent = $( vPageContent );
 	var loading = $( vloading );
 
 	this.loadPage = function ( pageName, checkTable ) {
 		if( this.lastPage != pageName ) {
-			this.lastPage = pageName;
 			loading.show();
+			this.lastPage = pageName;
 			
 			if( checkTable ) {
 				$( ".tab_selected" ).removeClass( "tab_selected" );
@@ -17,10 +18,6 @@ function pageController ( vPageContent, vloading ) {
 			
 			pageContent.load( pageFile, function( responseTxt, statusTxt, xhr ) {
 				loading.hide();
-				
-				/*if( statusTxt == "error" ) {
-					alert( "Error: " + xhr.status + ": " + xhr.statusText );
-				}*/
 			});
 		}
 	}

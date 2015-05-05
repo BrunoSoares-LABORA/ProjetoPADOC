@@ -127,7 +127,7 @@ a {
 
 .vertical_menu a {
 	color: #007cce;
-	font-size: 15px;
+	font-size: 14px;
 	font-weight: bold;
 	-moz-transform:rotate( 270deg ); 
     -moz-transform-origin: 48% 115%;
@@ -155,9 +155,9 @@ a {
 
 .body_right {
 	float: left;
-	width: -webkit-calc(100% - 61px);
-	width: -moz-calc(100% - 61px);
 	width: calc(100% - 61px);
+	width: -webkit-calc(100% - 61px);
+	width: -moz-calc(100% - 66px);
 	margin-left: 5px;
 	background-color: #e1eaf2;
 	border: 1px solid #c1c4c7;

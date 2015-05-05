@@ -1,0 +1,121 @@
+{
+	"siape" : "122251",
+	"data-ingresso-na-ufg": "12/03/1992",
+	"data-ingresso-servico-publico": "12/03/1992",
+	"periodos" : [
+		{ 
+			"periodo" : { "inicio" : "02/05/1994", "fim" : "02/05/2000" },
+			"dados-do-docente": {
+				"nome": "Professor Docente da Silva",
+				"unidade": "Faculdade de Artes Marciais",
+				"titulacao": "doutor",
+				"regime-de-trabalho": "DE",
+				"classe": "associado",
+				"nivel": "4",
+				"ch-contratada": "1760",
+				"ch-executada": "1760",
+				"email": "algumnome@ufg.br"
+			},
+			"afastamento": "DEPRECATED",
+			"atividades-de-ensino": [
+				{
+					"curso": "ciências da computação",
+					"disciplina": "Tópicos Relevantes",
+					"cha": "64",
+					"ano": "2014",
+					"sem": "1",
+					"turma": "N",
+					"sub": "",
+					"numero-alunos": "120",
+					"numero-sub": "0",
+					"cht": 64,
+					"chp": 0,
+					"chac": "",
+					"conjugada": true
+				}
+			],
+			"atividades-de-orientacao": [ 
+				{
+					"titulo-do-trabalho" : "o título aqui",
+					"tabela" : "código (chave) do tipo/classificação do trabalho",
+					"estudante" : "nome do orientando(a)",
+					"matricula" : "matrícula do estudante",
+					"funcao-do-docente" : "por exemplo, orientador",
+					"nivel" : "por exemplo, doutorado",
+					"curso" : "ciências da saúde",
+					"ies" : "UFG",
+					"cha" : 32,
+					"periodo" : { "inicio" : "dd/mm/aaaa", "fim" : "dd/mm/aaaa" },
+					"tipo-orientacao" : "presencial"
+				}
+			],
+			"atividades-em-projetos": [
+				{
+					"titulo-do-projeto" : "título aqui",
+					"tabela" : "código (chave) que classifica a atividade",
+					"unidade-responsavel" : "Instituto de Informática",
+					"tipo" : "projeto de pesquisa",
+					"situacao" : "em andamento",
+					"funcao" : "participante",
+					"financiado" : "não",
+					"cha" : 124,
+					"periodo" : { "inicio" : "dd/mm/aaaa", "fim" : "dd/mm/aaaa" }
+				}
+			],
+			"atividades-de-extensao": [
+				{
+					"tabela" : "código da extenão",
+					"cha" : 200,
+					"periodo" : { "inicio" : "dd/mm/aaaa", "fim" : "dd/mm/aaaa" },
+					"descricao" : "texto descritivo da atividade",
+					"clientela" : "para quem foi destinada"
+				}
+			],
+			"atividades-de-qualificacao": [
+				{
+					"tabela" : "código (chave) do tipo de qualificação",
+					"descricao" : "descrição da atividade de qualificação",
+					"cha" : 345,
+					"periodo" : { "inicio" : "dd/mm/aaaa", "fim" : "dd/mm/aaaa" }
+				}
+			],
+			"atividades-academicas-especiais": [
+				{
+					"tabela" : "código da atividade",
+					"cha" : 234,
+					"periodo" : { "inicio" : "dd/mm/aaaa", "fim" : "dd/mm/aaaa" },
+					"descricao" : "descrição complementar",
+					"clientela" : "para quem a atividade foi direcionada"
+				}
+			],
+			"atividades-administrativas": [
+				{
+					"tabela" : "código da atividade",
+					"cha" : 234,
+					"periodo" : { "inicio" : "dd/mm/aaaa", "fim" : "dd/mm/aaaa" },
+					"descricao" : "descrição complementar",
+					"emissor" : "órgão que emite a portaria de criação da atividade",
+					"orgao-servido" : "órgão contemplado pela portaria",
+					"portaria" : "identificação da portaria"
+				}
+			],
+			"produtos": [
+				{
+					"descricao" : "Um produto das organizações tabajara",
+					"titulo" : "título do produto",
+					"autoria" : "tipo de autoria do docente, p. ex., co-autor",
+					"associacao-do-produto" : "projeto de pesquisa",
+					"projeto-associado" : "título do projeto associado",
+					"veiculacao" : "regional",
+					"local" : "local em que ocorre a publicação",
+					"data" : "02/05/2014",
+					"ano-da-publicacao" : 2014,
+					"pagina-inicial" : "iv",
+					"pagina-final" : "x",
+					"numero-de-paginas" : 7,
+					"numero-da-patente" : "número aqui"
+				}
+			]
+		}
+	]
+}

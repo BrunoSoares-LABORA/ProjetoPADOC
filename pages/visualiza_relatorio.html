@@ -1,1 +1,30 @@
+<script>
+	$(function() {
+		var periods = siape_docente['periodos'];
+		
+		periods.forEach( function( period ) {
+			var activities = {
+				"produtos" : "produto"
+			};
+			
+			for ( var activity in activities ) {
+				var className = String( activities[activity] );
+				var activityItens = period[activity];
+
+				this[activity] = [];
+				activityItens.forEach( function( item ) {
+					var tempItem = new window[className]( item );
+					this[activity].push( tempItem );
+				});
+			}
+		});
+		
+		$( "#produtos" ).append( new produto().getTableHeader() );
+		produtos.forEach( function( produto ) { 
+			$( "#produtos" ).append( produto.getOverviewTableTr() );
+		});
+	});
+</script>
+
 <b>Página de visualização do relatório...</b>
+<table id="produtos"></table>

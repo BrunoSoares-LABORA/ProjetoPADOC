@@ -1,5 +1,10 @@
 <script>
 	$(function() {
+		dataRequester = new dataRequest();
+		refreshDatePicker();
+	});
+	
+	function refreshDatePicker() {
 		$( ".inputDate" ).datepicker( {
 			dateFormat: "dd/mm/yy",
 			showButtonPanel: true,
@@ -21,8 +26,23 @@
 				"Dezembro"
 			]
 		} );
+		
 		$(".inputDate").mask("99/99/9999");
-	});
+	}
+	
+	function addMorePeriod() {
+		htmlPeriod = "<tr class='lastPeriod'>" +
+			"<td>Período:</td>" +
+			"<td><input class='inputDate' name='start_date'/></td>" +
+			"<td>-</td>" +
+			"<td><input class='inputDate' name='end_date'/></td>" +
+		"</tr>";
+		
+		lastPeriod = $( ".lastPeriod" );
+		lastPeriod.removeClass( "lastPeriod" );
+		lastPeriod.after( htmlPeriod );
+		refreshDatePicker();
+	}
 </script>
 
 <div class="title">
@@ -33,7 +53,7 @@
 	<table>
 		<tr>
 			<td>Usuário:</td>
-			<td colspan="3"><input type="text" name="username" /></td>
+			<td colspan="3"><input type="text" name="username" value="aaa" id="username" /></td>
 		</tr>
 		<tr>
 			<td>Senha:</td>
@@ -43,15 +63,20 @@
 			<td>Matrícula SIAPE:</td>
 			<td colspan="3"><input type="text" name="siape" /></td>
 		</tr>
-		<tr>
+		<tr class="lastPeriod">
 			<td>Período:</td>
-			<td><input class="inputDate" /></td>
+			<td><input class="inputDate" name="start_date"/></td>
 			<td>-</td>
-			<td><input class="inputDate" /></td>
+			<td><input class="inputDate" name="end_date"/></td>
 		</tr>
 		<tr>
 			<td colspan="4">
-				<input type="button" value="Consultar" onclick="pageController.loadPage( 'teste', False )">
+				<input type="button" value="Adicionar período" onclick="addMorePeriod()">
+			</td>
+		</tr>
+		<tr>
+			<td colspan="4">
+				<input type="button" value="Consultar" onclick="dataRequester.exec()">
 			</td>
 		</tr>
 	</table>
