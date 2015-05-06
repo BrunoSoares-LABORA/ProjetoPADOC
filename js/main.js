@@ -3,6 +3,7 @@ $( document ).ready( function() {
 	$( ".vertical_menu a:first-child" ).trigger( "click" );
 	
 	loadStoredItens();
+	//localStorage.clear();
 });
 
 function loadStoredItens() {

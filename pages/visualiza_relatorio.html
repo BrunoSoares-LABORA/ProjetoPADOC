@@ -1,30 +1,68 @@
 <script>
 	$(function() {
-		var periods = siape_docente['periodos'];
+		try {
+			var periods = siape_docente['periodos'];
+		} catch( e ) {
+			console.log( "Docente não informado.." );
+			return;
+		}
 		
-		periods.forEach( function( period ) {
-			var activities = {
-				"produtos" : "produto"
-			};
+		var activities = {
+			"atividades-de-ensino" : "atividadeDeEnsino",
+			"atividades-de-orientacao" : "atividadeDeOrientacao",
+			"atividades-em-projetos" : "atividadeEmProjeto",
+			"atividades-de-extensao" : "atividadeDeExtensao",
+			"atividades-de-qualificacao" : "atividadeDeQualificacao",
+			"atividades-academicas-especiais" : "atividadeAcademicaEspecial",
+			"atividades-administrativas" : "atividadeAdministrativa",
+			"produtos" : "produto"
+		};
+		
+		period_objects = {}
+		for ( var activity in activities ) {
+			var className = String( activities[activity] );
+			period_objects[activity] = [];
 			
-			for ( var activity in activities ) {
-				var className = String( activities[activity] );
-				var activityItens = period[activity];
-
-				this[activity] = [];
-				activityItens.forEach( function( item ) {
-					var tempItem = new window[className]( item );
-					this[activity].push( tempItem );
-				});
-			}
-		});
+			periods.forEach( function( period ) {
+				try {
+					var activityItens = period[activity];
+					
+					activityItens.forEach( function( item ) {
+						try {
+							var tempItem = new window[className]( item );
+							period_objects[activity].push( tempItem );
+						} catch( e2 ) {
+							jsonItem = JSON.stringify( item );
+							console.log( "Não foi possível criar um objeto do item " + className + "." + jsonItem );
+						}
+					});
+				} catch( e ) {
+					console.log( "Atividade não encontrada no período do docente: " + activity );
+				}
+			});
+		}
 		
-		$( "#produtos" ).append( new produto().getTableHeader() );
-		produtos.forEach( function( produto ) { 
-			$( "#produtos" ).append( produto.getOverviewTableTr() );
-		});
+		for( object in period_objects ) {
+			try {
+				var className = String( activities[object] );
+				var tableId = String( "#" + object + "" );
+				
+				var activity_table = "<table id='" + object + "'></table>";
+				$( "#activity_container" ).append( activity_table );
+				$( tableId ).append( new window[className]().getTableHeader() );
+				
+				try {
+					period_objects[object].forEach( function( item ) {
+						$( tableId ).append( item.getOverviewTableTr() );
+					});
+				} catch( e2 ) {
+					console.log( "Não foi possível adicionar o objeto do item " + className + " a sua tabela" );
+				}
+			} catch( e ) {
+				console.log( "Não foi possível criar a tabela de " + object );
+			}
+		}
 	});
 </script>
 
-<b>Página de visualização do relatório...</b>
-<table id="produtos"></table>
+<div id="activity_container"></div>

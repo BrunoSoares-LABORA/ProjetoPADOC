@@ -40,10 +40,10 @@ function produto ( serializedObject ) {
 	this.getTableHeader = function() {
 		var tableHeader = "<tr class='table_header'>" +
 			"<td>Título</td>" +
-			"<td>Autoria</td>" +
 			"<td>Projeto associado</td>" +
 			"<td>Local</td>" +
 			"<td>Data</td>" +
+			"<td>Ações</td>" +
 		"</tr>";
 		
 		return tableHeader;
@@ -52,10 +52,10 @@ function produto ( serializedObject ) {
 	this.getOverviewTableTr = function () {
 		var formTableTr = "<tr>" +
 			"<td>" + this.titulo + "</td>" +
-			"<td>" + this.autoria + "</td>" +
 			"<td>" + this.projeto_associado + "</td>" +
 			"<td>" + this.local + "</td>" +
 			"<td>" + this.data + "</td>" +
+			"<td></td>" +
 		"</tr>";
 		
 		return formTableTr;
