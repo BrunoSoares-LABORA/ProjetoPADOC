@@ -1,4 +1,4 @@
-function atividadeDeExtensao ( serializedObject ) {
+function atividadeAcademicaEspecial ( serializedObject ) {
 	var selfObject = this;
 	
 	try {
@@ -23,7 +23,8 @@ function atividadeDeExtensao ( serializedObject ) {
 	
 	this.getTableHeader = function() {
 		var tableHeader = "<tr class='table_header'>" +
-			"<td>Código da extensão</td>" +
+			"<td>Código da atividade</td>" +
+			"<td>Período</td>" +
 			"<td>Clientela</td>" +
 			"<td width='100px'>Carga horária</td>" +
 			"<td width='100px'>Ações</td>" +
@@ -35,6 +36,7 @@ function atividadeDeExtensao ( serializedObject ) {
 	this.getOverviewTableTr = function () {
 		var formTableTr = "<tr>" +
 			"<td>" + this.tabela + "</td>" +
+			"<td>" + this.periodo['inicio'] + "-" + this.periodo['fim'] + "</td>" +
 			"<td>" + this.clientela + "</td>" +
 			"<td>" + this.cha + "</td>" +
 			"<td></td>" +

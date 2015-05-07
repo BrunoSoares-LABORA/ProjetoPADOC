@@ -32,10 +32,9 @@ function atividadeEmProjeto ( serializedObject ) {
 	this.getTableHeader = function() {
 		var tableHeader = "<tr class='table_header'>" +
 			"<td>Título do projeto</td>" +
-			"<td>Unidade Responsável</td>" +
-			"<td>Tipo</td>" +
-			"<td>Carga horária</td>" +
-			"<td>Ações</td>" +
+			"<td width='200px'>Tipo</td>" +
+			"<td width='100px'>Carga horária</td>" +
+			"<td width='100px'>Ações</td>" +
 		"</tr>";
 		
 		return tableHeader;
@@ -44,7 +43,6 @@ function atividadeEmProjeto ( serializedObject ) {
 	this.getOverviewTableTr = function () {
 		var formTableTr = "<tr>" +
 			"<td>" + this.tituloDoProjeto + "</td>" +
-			"<td>" + this.unidadeResponsavel + "</td>" +
 			"<td>" + this.tipo + "</td>" +
 			"<td>" + this.cha + "</td>" +
 			"<td></td>" +

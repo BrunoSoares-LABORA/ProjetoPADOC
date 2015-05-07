@@ -36,11 +36,10 @@ function atividadeDeOrientacao ( serializedObject ) {
 	this.getTableHeader = function() {
 		var tableHeader = "<tr class='table_header'>" +
 			"<td>Título do trabalho</td>" +
-			"<td>Estudante</td>" +
-			"<td>Curso</td>" +
-			"<td>Carga horária</td>" +
+			"<td width='200px'>Estudante</td>" +
 			"<td>Tipo da orientação</td>" +
-			"<td>Ações</td>" +
+			"<td width='100px'>Carga horária</td>" +
+			"<td width='100px'>Ações</td>" +
 		"</tr>";
 		
 		return tableHeader;
@@ -50,9 +49,8 @@ function atividadeDeOrientacao ( serializedObject ) {
 		var formTableTr = "<tr>" +
 			"<td>" + this.tituloDoTrabalho + "</td>" +
 			"<td>" + this.estudante + "</td>" +
-			"<td>" + this.curso + "</td>" +
-			"<td>" + this.cha + "</td>" +
 			"<td>" + this.tipoOrientacao + "</td>" +
+			"<td>" + this.cha + "</td>" +
 			"<td></td>" +
 		"</tr>";
 		

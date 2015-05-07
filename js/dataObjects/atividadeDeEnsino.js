@@ -39,12 +39,12 @@ function atividadeDeEnsino ( serializedObject ) {
 	
 	this.getTableHeader = function() {
 		var tableHeader = "<tr class='table_header'>" +
-			"<td>Curso</td>" +
+			"<td width='190px'>Curso</td>" +
 			"<td>Disciplina</td>" +
-			"<td>Carga horária</td>" +
 			"<td>Ano/Semestre</td>" +
 			"<td>Número de alunos</td>" +
-			"<td>Ações</td>" +
+			"<td width='100px'>Carga horária</td>" +
+			"<td width='100px'>Ações</td>" +
 		"</tr>";
 		
 		return tableHeader;
@@ -54,9 +54,9 @@ function atividadeDeEnsino ( serializedObject ) {
 		var formTableTr = "<tr>" +
 			"<td>" + this.curso + "</td>" +
 			"<td>" + this.disciplina + "</td>" +
-			"<td>" + this.cha + "</td>" +
 			"<td>" + this.ano + "/" + this.sem + "</td>" +
 			"<td>" + this.numero_alunos + "</td>" +
+			"<td>" + this.cha + "</td>" +
 			"<td></td>" +
 		"</tr>";
 		

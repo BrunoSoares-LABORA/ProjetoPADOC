@@ -15,6 +15,7 @@ function produto ( serializedObject ) {
 		this.pagina_final = serializedObject['pagina-final'];
 		this.numero_de_paginas = serializedObject['numero-de-paginas'];
 		this.numero_da_patente = serializedObject['numero-da-patente'];
+		this.editora = serializedObject['editora'];
 	} catch( e ){}
 	
 	this.toJSON = function () {
@@ -31,7 +32,8 @@ function produto ( serializedObject ) {
 			"pagina-inicial" : this.pagina_inicial,
 			"pagina-final" : this.pagina_final,
 			"numero-de-paginas" : this.numero_de_paginas,
-			"numero-da-patente" : this.numero_da_patente
+			"numero-da-patente" : this.numero_da_patente,
+			"editora" : this.editora
 		}
 		
 		return JSON.stringify( jsonDict );
@@ -43,7 +45,7 @@ function produto ( serializedObject ) {
 			"<td>Projeto associado</td>" +
 			"<td>Local</td>" +
 			"<td>Data</td>" +
-			"<td>Ações</td>" +
+			"<td width='100px'>Ações</td>" +
 		"</tr>";
 		
 		return tableHeader;
