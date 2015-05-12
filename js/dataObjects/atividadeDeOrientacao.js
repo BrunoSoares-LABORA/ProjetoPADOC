@@ -1,6 +1,8 @@
 function atividadeDeOrientacao ( serializedObject ) {
+	abstractActivity.call( this );
 	var selfObject = this;
-					
+	
+	this.activityType = "atividadeDeOrientacao";
 	try {
 		this.tituloDoTrabalho = serializedObject['titulo-do-trabalho'];
 		this.tabela = serializedObject['tabela'];
@@ -17,6 +19,7 @@ function atividadeDeOrientacao ( serializedObject ) {
 	
 	this.toJSON = function () {
 		jsonDict = {
+			"activity-type" : this.activityType,
 			"titulo-do-trabalho" : this.tituloDoTrabalho,
 			"tabela" : this.tabela,
 			"estudante" : this.estudante,
@@ -39,7 +42,7 @@ function atividadeDeOrientacao ( serializedObject ) {
 			"<td width='200px'>Estudante</td>" +
 			"<td>Tipo da orientação</td>" +
 			"<td width='100px'>Carga horária</td>" +
-			"<td width='100px'>Ações</td>" +
+			"<td width='80px'>Ações</td>" +
 		"</tr>";
 		
 		return tableHeader;
@@ -51,9 +54,19 @@ function atividadeDeOrientacao ( serializedObject ) {
 			"<td>" + this.estudante + "</td>" +
 			"<td>" + this.tipoOrientacao + "</td>" +
 			"<td>" + this.cha + "</td>" +
-			"<td></td>" +
+			"<td class='action_td'>" +
+				this.getEditButton() +
+				"<a href='javascript:void(0)'>" +
+					"<img src='images/delete_icon.png' />" +
+				"</a>" +
+			"</td>" +
 		"</tr>";
 		
 		return formTableTr;
+	}
+	
+	this.createEditView = function ( titleView, editViewDiv ) {
+		titleView.html( "Editar Atividade de Orientação" );
+		editViewDiv.append( "<h4>" + this.tituloDoTrabalho + "</h4>" ); 
 	}
 }

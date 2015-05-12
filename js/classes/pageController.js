@@ -1,13 +1,19 @@
 function pageController ( vPageContent, vloading ) {
-	this.lastPage = null;
+	var selfObject = this;
 	
-	var pageContent = $( vPageContent );
-	var loading = $( vloading );
+	try {
+		this.lastPage = last_page;
+	} catch( e ) {
+		this.lastPage = null;
+	}
+	this.firstLoad = true;
+	this.pageContent = $( vPageContent ) || null;
+	this.loading = $( vloading ) || null;
 
 	this.loadPage = function ( pageName, checkTable ) {
-		if( this.lastPage != pageName ) {
-			loading.show();
-			this.lastPage = pageName;
+		if( this.lastPage != pageName || this.firstLoad == true ) {
+			this.loading.show();
+			this.setLastPage( pageName );
 			
 			if( checkTable ) {
 				$( ".tab_selected" ).removeClass( "tab_selected" );
@@ -16,9 +22,39 @@ function pageController ( vPageContent, vloading ) {
 			
 			pageFile =  "pages/" + pageName + ".html";
 			
-			pageContent.load( pageFile, function( responseTxt, statusTxt, xhr ) {
-				loading.hide();
+			this.pageContent.load( pageFile, function( responseTxt, statusTxt, xhr ) {
+				selfObject.loading.hide();
 			});
+		}
+	}
+	
+	this.setLastPage = function ( pageName ) {
+		storeReturn = JSON.stringify( pageName );
+		localStorage.setItem( "last_page", storeReturn );
+		this.lastPage = pageName;
+		this.firstLoad = false;
+	}
+	
+	this.loadCurrentPage = function () {
+		var pages = [ 
+			"consulta_docente",
+			"visualiza_relatorio",
+			"ver_modificacoes"
+		];
+		
+		var pageFounded = false;
+		for( var page in pages ) {
+			if( pages[page] == this.lastPage ) {
+				var index = parseInt( page ) + 1;
+				var buttonElement = ".vertical_menu a:nth-child(" + index + ")";
+				
+				$( buttonElement ).trigger( "click" );
+				pageFounded = true;
+			}
+		}
+		
+		if( pageFounded == false ) {
+			$( ".vertical_menu a:first-child" ).trigger( "click" );
 		}
 	}
 }

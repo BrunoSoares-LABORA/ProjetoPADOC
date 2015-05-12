@@ -13,6 +13,7 @@
 		<script language="javascript" type="text/javascript" src="js/requests/serverRequest.js"></script>
 		<script language="javascript" type="text/javascript" src="js/requests/dataRequest.js"></script>
 		
+		<script language="javascript" type="text/javascript" src="js/dataObjects/abstractActivity.js"></script>
 		<script language="javascript" type="text/javascript" src="js/dataObjects/atividadeDeEnsino.js"></script>
 		<script language="javascript" type="text/javascript" src="js/dataObjects/atividadeDeOrientacao.js"></script>
 		<script language="javascript" type="text/javascript" src="js/dataObjects/atividadeEmProjeto.js"></script>
@@ -27,6 +28,14 @@
 	
 	<body>
 		<div id="wrapper">
+			<div id="activity_view_background">
+				<div id="activity_view_container">
+					<div id="close_view"></div>
+					<span id="view_title"></span>
+					<div id="activity_view"></div>
+				</div>
+			</div>
+			
 			<div id="header">
 				<div class="web_content float_adjustment">
 					<div class="text_logo float3_1">
@@ -43,8 +52,9 @@
 			</div>
 			
 			<div class="web_content top_menu">
-				<a href="#">Adicionar</a>
-				<a href="#">Remover</a>
+				<a href="#">Atividades</a>
+				<a href="#">Produtos</a>
+				<a href="#" onclick="closeSearch()">Fechar consulta</a>
 			</div>
 			
 			<div id="body" class="web_content float_adjustment">

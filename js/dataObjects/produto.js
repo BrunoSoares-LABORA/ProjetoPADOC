@@ -1,6 +1,8 @@
 function produto ( serializedObject ) {
+	abstractActivity.call( this );
 	var selfObject = this;
 	
+	this.activityType = "produto";
 	try {
 		this.descricao = serializedObject['descricao'];
 		this.titulo = serializedObject['titulo'];
@@ -20,6 +22,7 @@ function produto ( serializedObject ) {
 	
 	this.toJSON = function () {
 		jsonDict = {
+			"activity-type" : this.activityType,
 			"descricao" : this.descricao,
 			"titulo" : this.titulo,
 			"autoria" : this.autoria,
@@ -45,21 +48,35 @@ function produto ( serializedObject ) {
 			"<td>Projeto associado</td>" +
 			"<td>Local</td>" +
 			"<td>Data</td>" +
-			"<td width='100px'>Ações</td>" +
+			"<td width='80px'>Ações</td>" +
 		"</tr>";
 		
 		return tableHeader;
 	}
 	
 	this.getOverviewTableTr = function () {
-		var formTableTr = "<tr>" +
+		var formTableTr = $( "<tr>" +
 			"<td>" + this.titulo + "</td>" +
 			"<td>" + this.projeto_associado + "</td>" +
 			"<td>" + this.local + "</td>" +
 			"<td>" + this.data + "</td>" +
-			"<td></td>" +
-		"</tr>";
+			"<td class='action_td'>" +
+				this.getEditButton() +
+				"<a href='javascript:void(0)'>" +
+					"<img src='images/delete_icon.png' />" +
+				"</a>" +
+			"</td>" +
+		"</tr>" );
 		
 		return formTableTr;
+	}
+	
+	this.createEditView = function ( titleView, editViewDiv ) {
+		titleView.html( "Editar Produto" );
+		editViewDiv.append( "<h4>" + this.titulo + "</h4>" );
+		editViewDiv.append( "</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>teste" );
+		editViewDiv.append( "</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>teste" );
+		editViewDiv.append( "</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>teste" );
+		editViewDiv.append( "</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>teste" );
 	}
 }
