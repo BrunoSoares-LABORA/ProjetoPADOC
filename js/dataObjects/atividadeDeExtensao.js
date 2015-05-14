@@ -1,5 +1,5 @@
-function atividadeDeExtensao ( serializedObject ) {
-	abstractActivity.call( this );
+function atividadeDeExtensao ( activityId, serializedObject ) {
+	abstractActivity.call( this, activityId );
 	var selfObject = this;
 	
 	this.activityType = "atividadeDeExtensao";

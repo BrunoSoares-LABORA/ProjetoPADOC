@@ -7,44 +7,9 @@
 			return;
 		}
 		
-		var activities = {
-			"atividades-de-ensino" : "atividadeDeEnsino",
-			"atividades-de-orientacao" : "atividadeDeOrientacao",
-			"atividades-em-projetos" : "atividadeEmProjeto",
-			"atividades-de-extensao" : "atividadeDeExtensao",
-			"atividades-de-qualificacao" : "atividadeDeQualificacao",
-			"atividades-academicas-especiais" : "atividadeAcademicaEspecial",
-			"atividades-administrativas" : "atividadeAdministrativa",
-			"produtos" : "produto"
-		};
-		
-		period_objects = {}
-		for ( var activity in activities ) {
-			var className = String( activities[activity] );
-			period_objects[activity] = [];
-			
-			periods.forEach( function( period ) {
-				try {
-					var activityItens = period[activity];
-					
-					activityItens.forEach( function( item ) {
-						try {
-							var tempItem = new window[className]( item );
-							period_objects[activity].push( tempItem );
-						} catch( e2 ) {
-							jsonItem = JSON.stringify( item );
-							console.log( "Não foi possível criar um objeto do item " + className + "." + jsonItem );
-						}
-					});
-				} catch( e ) {
-					console.log( "Atividade não encontrada no período do docente: " + activity );
-				}
-			});
-		}
-		
-		for( object in period_objects ) {
+		for( object in periods_activities ) {
 			try {
-				var className = String( activities[object] );
+				var className = String( activities_name[object] );
 				var tableId = String( "#" + object + "" );
 				
 				var activity_table = "<table id='" + object + "'></table>";
@@ -52,11 +17,11 @@
 				$( tableId ).append( new window[className]().getTableHeader() );
 				
 				try {
-					period_objects[object].forEach( function( item ) {
+					periods_activities[object].forEach( function( item ) {
 						$( tableId ).append( item.getOverviewTableTr() );
 					});
 				} catch( e2 ) {
-					console.log( "Não foi possível adicionar o objeto do item " + className + " a sua tabela" );
+					console.log( "Não foi possível adicionar o objeto do item " + className + " a sua tabela: " + e2 );
 				}
 			} catch( e ) {
 				console.log( "Não foi possível criar a tabela de " + object );

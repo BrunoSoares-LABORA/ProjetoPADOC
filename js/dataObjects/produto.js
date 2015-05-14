@@ -1,5 +1,5 @@
-function produto ( serializedObject ) {
-	abstractActivity.call( this );
+function produto ( activityId, serializedObject ) {
+	abstractActivity.call( this, activityId );
 	var selfObject = this;
 	
 	this.activityType = "produto";
@@ -71,12 +71,38 @@ function produto ( serializedObject ) {
 		return formTableTr;
 	}
 	
-	this.createEditView = function ( titleView, editViewDiv ) {
-		titleView.html( "Editar Produto" );
-		editViewDiv.append( "<h4>" + this.titulo + "</h4>" );
-		editViewDiv.append( "</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>teste" );
-		editViewDiv.append( "</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>teste" );
-		editViewDiv.append( "</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>teste" );
-		editViewDiv.append( "</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>teste" );
+	this.createEditView = function ( titleView, editViewDiv, editPage ) {
+		if( typeof editPage == "undefined" ) {
+			$.ajax(
+				{
+					url: "activitiesView/" + this.activityType + ".html",
+					context: document.body,
+					success: function( response ) {
+						editPage = $( "" + response + "" );
+						selfObject.createEditView( titleView, editViewDiv, editPage );
+					}
+				}
+			);
+			return;
+		}
+		
+		var displayProductId = parseInt( this.id ) + 1;
+		titleView.html( "Editar Produto #" + displayProductId + "" );
+		
+		editPage.find( "textarea[name='descricao']" ).val( this.descricao );
+		editPage.find( "input[name='titulo']" ).attr( "value", this.titulo );
+		editPage.find( "input[name='autoria']" ).attr( "value", this.autoria );
+		editPage.find( "input[name='associacao_do_produto']" ).attr( "value", this.associacao_do_produto );
+		editPage.find( "input[name='projeto_associado']" ).attr( "value", this.projeto_associado );
+		editPage.find( "input[name='veiculacao']" ).attr( "value", this.veiculacao );
+		editPage.find( "input[name='local']" ).attr( "value", this.local );
+		editPage.find( "input[name='data']" ).attr( "value", this.data );
+		editPage.find( "input[name='ano_da_publicacao']" ).attr( "value", this.ano_da_publicacao );
+		editPage.find( "input[name='pagina_inicial']" ).attr( "value", this.pagina_inicial );
+		editPage.find( "input[name='pagina_final']" ).attr( "value", this.pagina_final );
+		editPage.find( "input[name='numero_de_paginas']" ).attr( "value", this.numero_de_paginas );
+		editPage.find( "input[name='numero_da_patente']" ).attr( "value", this.numero_da_patente );
+		editPage.find( "input[name='editora']" ).attr( "value", this.editora );
+		editViewDiv.append( editPage );
 	}
 }

@@ -1,5 +1,5 @@
-function atividadeEmProjeto ( serializedObject ) {
-	abstractActivity.call( this );
+function atividadeEmProjeto ( activityId, serializedObject ) {
+	abstractActivity.call( this, activityId );
 	var selfObject = this;
 	
 	this.activityType = "atividadeEmProjeto";

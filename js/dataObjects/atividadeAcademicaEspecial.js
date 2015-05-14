@@ -1,5 +1,5 @@
-function atividadeAcademicaEspecial ( serializedObject ) {
-	abstractActivity.call( this );
+function atividadeAcademicaEspecial ( activityId, serializedObject ) {
+	abstractActivity.call( this, activityId );
 	var selfObject = this;
 	
 	this.activityType = "atividadeAcademicaEspecial";
