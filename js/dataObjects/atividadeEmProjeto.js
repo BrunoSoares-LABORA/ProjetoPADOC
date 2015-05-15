@@ -1,8 +1,15 @@
-function atividadeEmProjeto ( activityId, serializedObject ) {
+function atividadeEmProjeto ( activityId, serializedObject, isCopy ) {
 	abstractActivity.call( this, activityId );
 	var selfObject = this;
 	
 	this.activityType = "atividadeEmProjeto";
+	
+	if ( isCopy != true ) {
+		this.copy = new atividadeEmProjeto( activityId, serializedObject, true );
+	} else {
+		this.copy = null;
+	}
+	
 	try {
 		this.tituloDoProjeto = serializedObject['titulo-do-projeto'];
 		this.tabela = serializedObject['tabela'];

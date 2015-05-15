@@ -1,8 +1,15 @@
-function atividadeDeExtensao ( activityId, serializedObject ) {
+function atividadeDeExtensao ( activityId, serializedObject, isCopy ) {
 	abstractActivity.call( this, activityId );
 	var selfObject = this;
 	
 	this.activityType = "atividadeDeExtensao";
+	
+	if ( isCopy != true ) {
+		this.copy = new atividadeDeExtensao( activityId, serializedObject, true );
+	} else {
+		this.copy = null;
+	}
+	
 	try {
 		this.tabela = serializedObject['tabela'];
 		this.cha = serializedObject['cha'];

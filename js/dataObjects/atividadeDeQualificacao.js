@@ -1,8 +1,15 @@
-function atividadeDeQualificacao ( activityId, serializedObject ) {
+function atividadeDeQualificacao ( activityId, serializedObject, isCopy ) {
 	abstractActivity.call( this, activityId );
 	var selfObject = this;
 	
 	this.activityType = "atividadeDeQualificacao";
+	
+	if ( isCopy != true ) {
+		this.copy = new atividadeDeQualificacao( activityId, serializedObject, true );
+	} else {
+		this.copy = null;
+	}
+	
 	try {
 		this.tabela = serializedObject['tabela'];
 		this.descricao = serializedObject['descricao'];

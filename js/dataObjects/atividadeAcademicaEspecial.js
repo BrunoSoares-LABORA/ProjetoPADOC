@@ -1,8 +1,15 @@
-function atividadeAcademicaEspecial ( activityId, serializedObject ) {
+function atividadeAcademicaEspecial ( activityId, serializedObject, isCopy ) {
 	abstractActivity.call( this, activityId );
 	var selfObject = this;
 	
 	this.activityType = "atividadeAcademicaEspecial";
+	
+	if ( isCopy != true ) {
+		this.copy = new atividadeAcademicaEspecial( activityId, serializedObject, true );
+	} else {
+		this.copy = null;
+	}
+	
 	try {
 		this.tabela = serializedObject['tabela'];
 		this.cha = serializedObject['cha'];

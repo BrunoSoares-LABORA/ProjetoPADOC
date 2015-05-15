@@ -1,8 +1,15 @@
-function produto ( activityId, serializedObject ) {
+function produto ( activityId, serializedObject, isCopy ) {
 	abstractActivity.call( this, activityId );
 	var selfObject = this;
 	
 	this.activityType = "produto";
+	
+	if ( isCopy != true ) {
+		this.copy = new produto( activityId, serializedObject, true );
+	} else {
+		this.copy = null;
+	}
+	
 	try {
 		this.descricao = serializedObject['descricao'];
 		this.titulo = serializedObject['titulo'];
@@ -71,30 +78,16 @@ function produto ( activityId, serializedObject ) {
 		return formTableTr;
 	}
 	
-	this.createEditView = function ( titleView, editViewDiv, editPage ) {
-		if( typeof editPage == "undefined" ) {
-			$.ajax(
-				{
-					url: "activitiesView/" + this.activityType + ".html",
-					context: document.body,
-					success: function( response ) {
-						editPage = $( "" + response + "" );
-						selfObject.createEditView( titleView, editViewDiv, editPage );
-					}
-				}
-			);
-			return;
-		}
-		
+	this.createEditView = function ( titleView, editViewDiv, editPage ) {		
 		var displayProductId = parseInt( this.id ) + 1;
 		titleView.html( "Editar Produto #" + displayProductId + "" );
-		
+				
 		editPage.find( "textarea[name='descricao']" ).val( this.descricao );
 		editPage.find( "input[name='titulo']" ).attr( "value", this.titulo );
 		editPage.find( "input[name='autoria']" ).attr( "value", this.autoria );
 		editPage.find( "input[name='associacao_do_produto']" ).attr( "value", this.associacao_do_produto );
-		editPage.find( "input[name='projeto_associado']" ).attr( "value", this.projeto_associado );
-		editPage.find( "input[name='veiculacao']" ).attr( "value", this.veiculacao );
+		editPage.find( "textarea[name='projeto_associado']" ).val( this.projeto_associado );
+		editPage.find( "textarea[name='veiculacao']" ).val( this.veiculacao );
 		editPage.find( "input[name='local']" ).attr( "value", this.local );
 		editPage.find( "input[name='data']" ).attr( "value", this.data );
 		editPage.find( "input[name='ano_da_publicacao']" ).attr( "value", this.ano_da_publicacao );
@@ -104,5 +97,37 @@ function produto ( activityId, serializedObject ) {
 		editPage.find( "input[name='numero_da_patente']" ).attr( "value", this.numero_da_patente );
 		editPage.find( "input[name='editora']" ).attr( "value", this.editora );
 		editViewDiv.append( editPage );
+	}
+	
+	this.save = function ( editPage ) {
+		var newDescricao			= editPage.find( "textarea[name='descricao']" ).val();
+		var newTitulo				= editPage.find( "input[name='titulo']" ).attr( "value" );
+		var newAutoria				= editPage.find( "input[name='autoria']" ).attr( "value" );
+		var newAssociacaoDoProduto	= editPage.find( "input[name='associacao_do_produto']" ).attr( "value" );
+		var newProjetoAssociado		= editPage.find( "textarea[name='projeto_associado']" ).val();
+		var newVeiculacao			= editPage.find( "textarea[name='veiculacao']" ).val();
+		var newLocal				= editPage.find( "input[name='local']" ).attr( "value" );
+		var newData					= editPage.find( "input[name='data']" ).attr( "value" );
+		var newAnoDaPublicacao		= editPage.find( "input[name='ano_da_publicacao']" ).attr( "value" );
+		var newPaginaInicial		= editPage.find( "input[name='pagina_inicial']" ).attr( "value" );
+		var newPaginaFinal			= editPage.find( "input[name='pagina_final']" ).attr( "value" );
+		var newNumeroDePaginas		= editPage.find( "input[name='numero_de_paginas']" ).attr( "value" );
+		var newNumeroDaPatente		= editPage.find( "input[name='numero_da_patente']" ).attr( "value" );
+		var newEditora				= editPage.find( "input[name='editora']" ).attr( "value" );
+		
+		this.descricao = newDescricao;
+		this.titulo = newTitulo;
+		this.autoria = newAutoria;
+		this.associacao_do_produto = newAssociacaoDoProduto;
+		this.projeto_associado = newProjetoAssociado;
+		this.veiculacao = newVeiculacao;
+		this.local = newLocal;
+		this.data = newData;
+		this.ano_da_publicacao = newAnoDaPublicacao;
+		this.pagina_inicial = newPaginaInicial;
+		this.pagina_final = newPaginaFinal;
+		this.numero_de_paginas = newNumeroDePaginas;
+		this.numero_da_patente = newNumeroDaPatente;
+		this.editora = newEditora;
 	}
 }

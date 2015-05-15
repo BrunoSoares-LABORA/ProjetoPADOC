@@ -21,12 +21,28 @@ function abstractActivity ( activityId ) {
 	}
 	
 	this.showEditView = function ( activityType, activityId ) {
-		var editViewDiv = $( "#activity_view" );
-		var titleView = $( "#view_title" );
+		var activity = periods_activities[activityType][activityId];
 		
-		var activity = periods_activities[activityType][activityId];		
-		activity.createEditView( titleView, editViewDiv );
+		ajaxOpt = {
+			url: "activitiesView/" + activity.activityType + "/edit.html",
+			dataType: "text",
+			context: document.body,
+			success: function( response ) {
+				var editViewDiv = $( "#activity_view" );
+				var titleView = $( "#view_title" );
+				var editPage = $( response );
+				
+				activity.createEditView( titleView, editViewDiv, editPage );
+				
+				$( "#btn_save_activity" ).unbind();
+				$( "#btn_save_activity" ).click( function( e ) {
+					activity.save( editPage );
+				});
+				
+				$( "#activity_view_background" ).fadeToggle( "fast" );
+			}
+		}
 		
-		$( "#activity_view_background" ).fadeToggle( "fast" );
+		$.ajax( ajaxOpt );
 	}
 }

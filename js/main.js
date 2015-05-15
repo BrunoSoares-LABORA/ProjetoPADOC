@@ -10,6 +10,7 @@ $( document ).ready( function() {
 		var close_elem = [ 'close_view' ];
 		if( close_elem.indexOf( senderElement.id ) >= 0 ) {
 			$("#activity_view_background").fadeToggle( "fast", function() {
+				$( "#view_title" ).html( '' );
 				$("#activity_view").html( '' );
 			});
 		}

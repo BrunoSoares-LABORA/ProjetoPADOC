@@ -1,8 +1,15 @@
-function atividadeDeOrientacao ( activityId, serializedObject ) {
+function atividadeDeOrientacao ( activityId, serializedObject, isCopy ) {
 	abstractActivity.call( this, activityId );
 	var selfObject = this;
 	
 	this.activityType = "atividadeDeOrientacao";
+	
+	if ( isCopy != true ) {
+		this.copy = new atividadeDeOrientacao( activityId, serializedObject, true );
+	} else {
+		this.copy = null;
+	}
+	
 	try {
 		this.tituloDoTrabalho = serializedObject['titulo-do-trabalho'];
 		this.tabela = serializedObject['tabela'];

@@ -1,8 +1,15 @@
-function atividadeAdministrativa ( activityId, serializedObject ) {
+function atividadeAdministrativa ( activityId, serializedObject, isCopy ) {
 	abstractActivity.call( this, activityId );
 	var selfObject = this;
 	
 	this.activityType = "atividadeAdministrativa";
+	
+	if ( isCopy != true ) {
+		this.copy = new atividadeAdministrativa( activityId, serializedObject, true );
+	} else {
+		this.copy = null;
+	}
+	
 	try {
 		this.tabela = serializedObject['tabela'];
 		this.cha = serializedObject['cha'];
