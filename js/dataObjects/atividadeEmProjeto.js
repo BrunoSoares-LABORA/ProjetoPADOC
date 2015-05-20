@@ -66,8 +66,45 @@ function atividadeEmProjeto ( activityId, serializedObject, isCopy ) {
 		return formTableTr;
 	}
 	
-	this.createEditView = function ( titleView, editViewDiv ) {
-		titleView.html( "Editar Atividade em Projeto" );
-		editViewDiv.append( "<h4>" + this.tituloDoProjeto + "</h4>" ); 
+	this.createEditView = function ( titleView, editViewDiv, editPage ) {
+		var displayProductId = parseInt( this.id ) + 1;
+		titleView.html( "Editar Atividade em Projeto #" + displayProductId + "" );
+		
+		editPage.find( "textarea[name='titulo_do_projeto']" ).val( this.tituloDoProjeto );
+		editPage.find( "input[name='tabela']" ).attr( "value", this.tabela );
+		editPage.find( "input[name='unidade_responsavel']" ).attr( "value", this.unidadeResponsavel );
+		editPage.find( "input[name='tipo']" ).attr( "value", this.tipo );
+		editPage.find( "input[name='situacao']" ).attr( "value", this.situacao );
+		editPage.find( "input[name='funcao']" ).attr( "value", this.funcao );
+		editPage.find( "input[name='financiado']" ).attr( "value", this.financiado );
+		editPage.find( "input[name='cha']" ).attr( "value", this.cha );
+		editPage.find( "input[name='periodo_inicio']" ).attr( "value", this.periodo['inicio'] );
+		editPage.find( "input[name='periodo_fim']" ).attr( "value", this.periodo['fim'] );
+		editViewDiv.append( editPage );
+	}
+	
+	this.save = function ( editPage ) {
+		var newTituloDoProjeto		= editPage.find( "textarea[name='titulo_do_projeto']" ).val();
+		var newTabela				= editPage.find( "input[name='tabela']" ).attr( "value" );
+		var newUnidadeResponsavel	= editPage.find( "input[name='unidade_responsavel']" ).attr( "value" );
+		var newTipo					= editPage.find( "input[name='tipo']" ).attr( "value" );
+		var newSituacao				= editPage.find( "input[name='situacao']" ).attr( "value" );
+		var newFuncao				= editPage.find( "input[name='funcao']" ).attr( "value" );
+		var newFinanciado			= editPage.find( "input[name='financiado']" ).attr( "value" );
+		var newCha					= editPage.find( "input[name='cha']" ).attr( "value" );
+		var newPeriodo				= {
+			'inicio' : editPage.find( "input[name='periodo_inicio']" ).attr( "value" ),
+			'fim' : editPage.find( "input[name='periodo_fim']" ).attr( "value" )
+		}
+		
+		this.tituloDoProjeto 		= newTituloDoProjeto;
+		this.tabela 				= newTabela;
+		this.unidadeResponsavel 	= newUnidadeResponsavel;
+		this.tipo 					= newTipo;
+		this.situacao 				= newSituacao;
+		this.funcao 				= newFuncao;
+		this.financiado 			= newFinanciado;
+		this.cha 					= newCha;
+		this.periodo 				= newPeriodo;
 	}
 }

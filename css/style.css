@@ -297,6 +297,7 @@ a {
 	padding-bottom: 10px;
 	padding-left: 5px;
 	padding-right: 5px;
+	vertical-align: middle;
 }
 
 #activity_view tr.title td {
@@ -328,6 +329,13 @@ a {
 	max-height: 100px;
 	border: 1px solid #ccc;
 	padding: 8px;
+}
+
+#activity_view table input.date {
+	width: -webkit-calc(50% - 25px);
+	width: -moz-calc(50% - 25px);
+	width: calc(50% - 25px);
+	display: inline-block;
 }
 
 #view_buttons {

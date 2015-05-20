@@ -63,8 +63,30 @@ function atividadeDeQualificacao ( activityId, serializedObject, isCopy ) {
 		return formTableTr;
 	}
 	
-	this.createEditView = function ( titleView, editViewDiv ) {
-		titleView.html( "Editar Atividade de Qualificação" );
-		editViewDiv.append( "<h4>" + this.tabela + "</h4>" ); 
+	this.createEditView = function ( titleView, editViewDiv, editPage ) {
+		var displayProductId = parseInt( this.id ) + 1;
+		titleView.html( "Editar Atividade de Qualificação #" + displayProductId + "" );
+		
+		editPage.find( "textarea[name='descricao']" ).val( this.descricao );
+		editPage.find( "input[name='tabela']" ).attr( "value", this.tabela );
+		editPage.find( "input[name='cha']" ).attr( "value", this.cha );
+		editPage.find( "input[name='periodo_inicio']" ).attr( "value", this.periodo['inicio'] );
+		editPage.find( "input[name='periodo_fim']" ).attr( "value", this.periodo['fim'] );
+		editViewDiv.append( editPage );
+	}
+	
+	this.save = function ( editPage ) {
+		var newDescricao	= editPage.find( "textarea[name='descricao']" ).val();
+		var newTabela		= editPage.find( "input[name='tabela']" ).attr( "value" );
+		var newCha			= editPage.find( "input[name='cha']" ).attr( "value" );
+		var newPeriodo		= {
+			'inicio' : editPage.find( "input[name='periodo_inicio']" ).attr( "value" ),
+			'fim' : editPage.find( "input[name='periodo_fim']" ).attr( "value" )
+		}
+		
+		this.descricao 	= newDescricao;
+		this.tabela 	= newTabela;
+		this.cha 		= newCha;
+		this.periodo 	= newPeriodo;
 	}
 }
