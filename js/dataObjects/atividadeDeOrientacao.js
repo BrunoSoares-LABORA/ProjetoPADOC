@@ -72,8 +72,51 @@ function atividadeDeOrientacao ( activityId, serializedObject, isCopy ) {
 		return formTableTr;
 	}
 	
-	this.createEditView = function ( titleView, editViewDiv ) {
-		titleView.html( "Editar Atividade de Orientação" );
-		editViewDiv.append( "<h4>" + this.tituloDoTrabalho + "</h4>" ); 
+	this.createEditView = function ( titleView, editViewDiv, editPage ) {
+		var displayProductId = parseInt( this.id ) + 1;
+		titleView.html( "Editar Atividade de Orientação #" + displayProductId + "" );
+		
+		editPage.find( "textarea[name='titulo_do_trabalho']" ).val( this.tituloDoTrabalho );
+		editPage.find( "input[name='tabela']" ).attr( "value", this.tabela );
+		editPage.find( "input[name='estudante']" ).attr( "value", this.estudante );
+		editPage.find( "input[name='matricula']" ).attr( "value", this.matricula );
+		editPage.find( "input[name='funcao_do_docente']" ).attr( "value", this.funcaoDoDocente );
+		editPage.find( "input[name='nivel']" ).attr( "value", this.nivel );
+		editPage.find( "input[name='curso']" ).attr( "value", this.curso );
+		editPage.find( "input[name='ies']" ).attr( "value", this.ies );
+		editPage.find( "input[name='cha']" ).attr( "value", this.cha );
+		editPage.find( "input[name='tipo_orientacao']" ).attr( "value", this.tipoOrientacao );
+		editPage.find( "input[name='periodo_inicio']" ).attr( "value", this.periodo['inicio'] );
+		editPage.find( "input[name='periodo_fim']" ).attr( "value", this.periodo['fim'] );
+		editViewDiv.append( editPage );
+	}
+	
+	this.save = function ( editPage ) {
+		var newTituloDoTrabalho	= editPage.find( "textarea[name='titulo_do_trabalho']" ).val();
+		var newTabela			= editPage.find( "input[name='tabela']" ).attr( "value" );
+		var newEstudante		= editPage.find( "input[name='estudante']" ).attr( "value" );
+		var newMatricula		= editPage.find( "input[name='matricula']" ).attr( "value" );
+		var newFuncaoDoDocente	= editPage.find( "input[name='funcao_do_docente']" ).attr( "value" );
+		var newNivel			= editPage.find( "input[name='nivel']" ).attr( "value" );
+		var newCurso			= editPage.find( "input[name='curso']" ).attr( "value" );
+		var newIes				= editPage.find( "input[name='ies']" ).attr( "value" );
+		var newCha				= editPage.find( "input[name='cha']" ).attr( "value" );
+		var newTipoOrientacao	= editPage.find( "input[name='tipo_orientacao']" ).attr( "value" );
+		var newPeriodo			= {
+			'inicio' : editPage.find( "input[name='periodo_inicio']" ).attr( "value" ),
+			'fim' : editPage.find( "input[name='periodo_fim']" ).attr( "value" )
+		}
+		
+		this.tituloDoTrabalho	= newTituloDoTrabalho;
+		this.tabela				= newTabela;
+		this.estudante			= newEstudante;
+		this.matricula			= newMatricula;
+		this.funcaoDoDocente	= newFuncaoDoDocente;
+		this.nivel				= newNivel;
+		this.curso				= newCurso;
+		this.ies				= newIes;
+		this.cha				= newCha;
+		this.periodo			= newPeriodo;
+		this.tipoOrientacao		= newTipoOrientacao;
 	}
 }

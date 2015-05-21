@@ -24,7 +24,7 @@ function abstractActivity ( activityId ) {
 		var activity = periods_activities[activityType][activityId];
 		
 		ajaxOpt = {
-			url: "activitiesView/" + activity.activityType + "/edit.html",
+			url: "view/activities/" + activity.activityType + "/edit.html",
 			dataType: "text",
 			context: document.body,
 			success: function( response ) {

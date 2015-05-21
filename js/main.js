@@ -5,13 +5,13 @@ $( document ).ready( function() {
 	
 	loadActivities();
 	
-	$("#activity_view_background").click( function( e ) {
+	$( "#activity_view_background" ).click( function( e ) {
 		var senderElement = e.target;
 		var close_elem = [ 'close_view' ];
 		if( close_elem.indexOf( senderElement.id ) >= 0 ) {
-			$("#activity_view_background").fadeToggle( "fast", function() {
+			$( "#activity_view_background" ).fadeToggle( "fast", function() {
 				$( "#view_title" ).html( '' );
-				$("#activity_view").html( '' );
+				$( "#activity_view" ).html( '' );
 			});
 		}
 	});
