@@ -1,11 +1,11 @@
-function atividadeDeQualificacao ( activityId, serializedObject, isCopy ) {
-	abstractActivity.call( this, activityId );
+function atividadeDeQualificacao ( activityId, location, serializedObject, isCopy ) {
+	abstractActivity.call( this, activityId, location );
 	var selfObject = this;
 	
 	this.activityType = "atividadeDeQualificacao";
 	
 	if ( isCopy != true ) {
-		this.copy = new atividadeDeQualificacao( activityId, serializedObject, true );
+		this.copy = new atividadeDeQualificacao( activityId, location, serializedObject, true );
 	} else {
 		this.copy = null;
 	}
@@ -17,13 +17,18 @@ function atividadeDeQualificacao ( activityId, serializedObject, isCopy ) {
 		this.periodo = serializedObject['periodo'];
 	} catch( e ){}
 	
-	this.toJSON = function () {
-		jsonDict = {
-			"activity-type" : this.activityType,
+	this.toJSON = function ( fullSave ) {
+		var jsonDict = {
 			"tabela" : this.tabela,
 			"descricao" : this.descricao,
 			"cha" : this.cha,
 			"periodo" : this.periodo
+		}
+		
+		if( fullSave === true ) {
+			jsonDict["activity-type"] = this.activityType;
+			jsonDict["copy"] = JSON.parse( this.copy.toJSON( false ) );
+			jsonDict["removed"] = this.removed;
 		}
 		
 		return JSON.stringify( jsonDict );
@@ -88,5 +93,7 @@ function atividadeDeQualificacao ( activityId, serializedObject, isCopy ) {
 		this.tabela 	= newTabela;
 		this.cha 		= newCha;
 		this.periodo 	= newPeriodo;
+		
+		abstractActivity.prototype.save.call( this )
 	}
 }

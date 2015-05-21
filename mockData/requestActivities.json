@@ -481,6 +481,136 @@
 					"editora" : "Divulgado e disponível no portal Assembla (https://www.assembla.com/code/estudosufg/subversion/nodes/264/FichaA/)."
 				}
 			]
+		},
+		{ 
+			"periodo" : { "inicio" : "01/01/2014", "fim" : "31/12/2014" },
+			"dados-do-docente": {
+				"nome": "FÁBIO NOGUEIRA DE LUCENA",
+				"unidade": "INSTITUTO DE INFORMÁTICA",
+				"titulacao": "Doutor",
+				"regime-de-trabalho": "DE",
+				"classe": "Associado",
+				"nivel": "4",
+				"ch-contratada": "1760",
+				"ch-executada": "1760",
+				"email": "fabio@inf.ufg.br"
+			},
+			"afastamento": "DEPRECATED",
+			"atividades-de-ensino": [
+				{
+					"curso": "CIÊNCIAS DA COMPUTAÇÃO",
+					"disciplina": "TÓPICOS 2",
+					"cha": "64",
+					"ano": "2014",
+					"sem": "1",
+					"turma": "N",
+					"sub": "",
+					"numero-alunos": 1,
+					"numero-sub": 0,
+					"cht": 64,
+					"chp": 0,
+					"chac": "",
+					"conjugada": true
+				},
+				{
+					"curso": "CIÊNCIAS DA COMPUTAÇÃO",
+					"disciplina": "TÓPICOS 2",
+					"cha": "64",
+					"ano": "2014",
+					"sem": "1",
+					"turma": "N",
+					"sub": "",
+					"numero-alunos": 1,
+					"numero-sub": 0,
+					"cht": 64,
+					"chp": 0,
+					"chac": "",
+					"conjugada": true
+				}
+			],
+			"atividades-de-orientacao": [
+				{
+					"titulo-do-trabalho" : "REGISTRO ELETRÔNICO EM SAÚDE, PROPOSTA DE UM MODELO DE INFORMAÇÃO PARA USO NA ATENÇÃO PRIMÁRIA COM VISTAS À INTEROPERABILIDADE",
+					"tabela" : "Aluno co-orientado em dissertação de mestrado defendida e aprovada",
+					"estudante" : "RENATA DUTRA BRAGA",
+					"matricula" : "2012961",
+					"funcao-do-docente" : "Co-orientador",
+					"nivel" : "Mestrado",
+					"curso" : "CIÊNCIAS DA SAÚDE",
+					"ies" : "UNIVERSIDADE FEDERAL DE GOIÁS",
+					"cha" : 32,
+					"periodo" : { "inicio" : "13/03/2012", "fim" : "13/03/2014" },
+					"tipo-orientacao" : "PRESENCIAL"
+				}
+			],
+			"atividades-em-projetos": [
+				{
+					"titulo-do-projeto" : "METODOLOGIAS DE INTEGRAÇÃO DE INFORMAÇÕES ARMAZENADAS EM BANCOS DE DADOS/WEB",
+					"tabela" : "Participante de projeto de Pesquisa sem Financiamento",
+					"unidade-responsavel" : "",
+					"tipo" : "Projeto de Pesquisa",
+					"situacao" : "Em andamento",
+					"funcao" : "Participante",
+					"financiado" : "Não",
+					"cha" : 124,
+					"periodo" : { "inicio" : "01/08/2004", "fim" : "31/12/2015" }
+				}
+			],
+			"atividades-de-extensao": [
+				{
+					"tabela" : "Palestrante, conferencista ou participante em mesa redonda em evento científico, cultural ou artístico - Evento regional ou local",
+					"cha" : 20,
+					"periodo" : { "inicio" : "22/10/2014", "fim" : "22/10/2014" },
+					"descricao" : "Palestra na XIV Jornada Goiana em Engenharia de Software. Título: Entrega Contínua: Uma Visão Geral.",
+					"clientela" : "Estudantes e profissionais da computação."
+				}
+			],
+			"atividades-de-qualificacao": [
+				{
+					"tabela" : "Curso de aperfeiçoamento realizado com carga horária superior a 40 horas",
+					"descricao" : "Especialização concluída na UNIFESP (Especialização em Informática em Saúde). Continuidade do esforço iniciado durante a licença para capacitação (ocorrida no final do ano anterior). Título do trabalho produzido e defendido: Persistência de dados clínicos modelados em arquétipos empregando bases NoSQL.",
+					"cha" : 0,
+					"periodo" : { "inicio" : "01/01/2014", "fim" : "23/11/2014" }
+				}
+			],
+			"atividades-academicas-especiais": [
+				{
+					"tabela" : "Outras Atividades Acadêmicas",
+					"cha" : 44,
+					"periodo" : { "inicio" : "01/01/2014", "fim" : "31/12/2014" },
+					"descricao" : "Reuniões do conselho diretor do Instituto de Informática e reuniões de planejamento acadêmico.",
+					"clientela" : "Instituto de Informática"
+				}
+			],
+			"atividades-administrativas": [
+				{
+					"tabela" : "Atividades acadêmicas e administrativas designadas por portaria do Reitor, Pró-Reitor ou Diretor de Unidade Acadêmica com carga horária >=150 horas",
+					"descricao" : "Membro da comissão de Governança da Informação e Informática em Saúde (CGIS) da UFG.",
+					"emissor" : "REITORIA",
+					"orgao-servido" : "Instituto de Informática",
+					"portaria" : "3612",
+					"cha" : 160,
+					"periodo" : { "inicio" : "01/01/2014", "fim" : "31/12/2014" }
+				}
+			],
+			"produtos": [
+				{
+					"descricao" : "Trabalho completo publicado em anais de congresso cientifico",
+					"titulo" : "FichAs, uma solução de software livre móvel aos Agentes Comunitários de Saúde no Sistema Público de Saúde",
+					"autoria" : "Co-autor",
+					"associacao-do-produto" : "Projeto de pesquisa",
+					"projeto-associado" : "38370 : O REGISTRO ELETRÔNICO EM SAÚDE (RES) DE INSTITUIÇÕES DE ENSINO EM SAÚDE: REPRESENTAÇÃO DA INFORMAÇÃO BASEADA EM ARQUÉTIPOS COM FOCO NA ANAMNESE",
+					"veiculacao" : "Regional",
+					"local" : "Goiânia/GO.",
+					"data" : "22/11/2014",
+					"ano-da-publicacao" : 2014,
+					"pagina-inicial" : "53",
+					"pagina-final" : "64",
+					"numero-de-paginas" : 12,
+					"numero-da-patente" : "",
+					"editora" : "II Encontro Regional de Informática de Goiás (SBC) ISSN 2359-0386."
+				}
+			]
 		}
 	]
 }

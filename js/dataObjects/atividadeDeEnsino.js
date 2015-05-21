@@ -1,11 +1,12 @@
-function atividadeDeEnsino ( activityId, serializedObject, isCopy ) {
-	abstractActivity.call( this, activityId );
+function atividadeDeEnsino ( activityId, location, serializedObject, isCopy ) {
+	abstractActivity.call( this, activityId, location );
+	
 	var selfObject = this;
 	
 	this.activityType = "atividadeDeEnsino";
 	
 	if ( isCopy != true ) {
-		this.copy = new atividadeDeEnsino( activityId, serializedObject, true );
+		this.copy = new atividadeDeEnsino( activityId, location, serializedObject, true );
 	} else {
 		this.copy = null;
 	}
@@ -18,17 +19,16 @@ function atividadeDeEnsino ( activityId, serializedObject, isCopy ) {
 		this.sem = serializedObject['sem'];
 		this.turma = serializedObject['turma'];
 		this.sub = serializedObject['sub'];
-		this.numero_alunos = serializedObject['numero-alunos'];
-		this.numero_sub = serializedObject['numero-sub'];
+		this.numeroAlunos = serializedObject['numero-alunos'];
+		this.numeroSub = serializedObject['numero-sub'];
 		this.cht = serializedObject['cht'];
 		this.chp = serializedObject['chp'];
 		this.chac = serializedObject['chac'];
 		this.conjugada = serializedObject['conjugada'];
 	} catch( e ){}
 	
-	this.toJSON = function () {
-		jsonDict = {
-			"activity-type" : this.activityType,
+	this.toJSON = function ( fullSave ) {
+		var jsonDict = {
 			"curso" : this.curso,
 			"disciplina" : this.disciplina,
 			"cha" : this.cha,
@@ -36,12 +36,18 @@ function atividadeDeEnsino ( activityId, serializedObject, isCopy ) {
 			"sem" : this.sem,
 			"turma" : this.turma,
 			"sub" : this.sub,
-			"numero-alunos" : this.numero_alunos,
-			"numero-sub" : this.numero_sub,
+			"numero-alunos" : this.numeroAlunos,
+			"numero-sub" : this.numeroSub,
 			"cht" : this.cht,
 			"chp" : this.chp,
 			"chac" : this.chac,
 			"conjugada" : this.conjugada
+		}
+		
+		if( fullSave === true ) {
+			jsonDict["activity-type"] = this.activityType;
+			jsonDict["copy"] = JSON.parse( this.copy.toJSON( false ) );
+			jsonDict["removed"] = this.removed;
 		}
 		
 		return JSON.stringify( jsonDict );
@@ -65,7 +71,7 @@ function atividadeDeEnsino ( activityId, serializedObject, isCopy ) {
 			"<td>" + this.curso + "</td>" +
 			"<td>" + this.disciplina + "</td>" +
 			"<td>" + this.ano + "/" + this.sem + "</td>" +
-			"<td>" + this.numero_alunos + "</td>" +
+			"<td>" + this.numeroAlunos + "</td>" +
 			"<td>" + this.cha + "</td>" +
 			"<td class='action_td'>" +
 				this.getEditButton() +
@@ -78,9 +84,55 @@ function atividadeDeEnsino ( activityId, serializedObject, isCopy ) {
 		return formTableTr;
 	}
 	
-	this.createEditView = function ( titleView, editViewDiv ) {
-		titleView.html( "Editar Atividade de Ensino" );
-		editViewDiv.append( "<h4>Curso: " + this.curso + "</h4>" );
-		editViewDiv.append( "<h4>Disciplina: " + this.disciplina + "</h4>" ); 
+	this.createEditView = function ( titleView, editViewDiv, editPage ) {
+		var displayProductId = parseInt( this.id ) + 1;
+		titleView.html( "Editar Atividade de Ensino #" + displayProductId + "" );
+		
+		editPage.find( "input[name='curso']" ).attr( "value", this.curso );
+		editPage.find( "input[name='disciplina']" ).attr( "value", this.disciplina );
+		editPage.find( "input[name='cha']" ).attr( "value", this.cha );
+		editPage.find( "input[name='ano']" ).attr( "value", this.ano );
+		editPage.find( "input[name='sem']" ).attr( "value", this.sem );
+		editPage.find( "input[name='turma']" ).attr( "value", this.turma );
+		editPage.find( "input[name='sub']" ).attr( "value", this.sub );
+		editPage.find( "input[name='numero_alunos']" ).attr( "value", this.numeroAlunos );
+		editPage.find( "input[name='numero_sub']" ).attr( "value", this.numeroSub );
+		editPage.find( "input[name='cht']" ).attr( "value", this.cht );
+		editPage.find( "input[name='chp']" ).attr( "value", this.chp );
+		editPage.find( "input[name='chac']" ).attr( "value", this.chac );
+		editPage.find( "input[name='conjugada']" ).attr( "value", this.conjugada );
+		editViewDiv.append( editPage );
+	}
+	
+	this.save = function ( editPage ) {
+		var newCurso		= editPage.find( "input[name='curso']" ).attr( "value" );
+		var newDisciplina	= editPage.find( "input[name='disciplina']" ).attr( "value" );
+		var newCha			= editPage.find( "input[name='cha']" ).attr( "value" );
+		var newAno			= editPage.find( "input[name='ano']" ).attr( "value" );
+		var newSem			= editPage.find( "input[name='sem']" ).attr( "value" );
+		var newTurma		= editPage.find( "input[name='turma']" ).attr( "value" );
+		var newSub			= editPage.find( "input[name='sub']" ).attr( "value" );
+		var newNumeroAlunos	= parseInt( editPage.find( "input[name='numero_alunos']" ).attr( "value" ) );
+		var newNumeroSub	= parseInt( editPage.find( "input[name='numero_sub']" ).attr( "value" ) );
+		var newCht			= parseInt( editPage.find( "input[name='cht']" ).attr( "value" ) );
+		var newChp			= parseInt( editPage.find( "input[name='chp']" ).attr( "value" ) );
+		var newChac			= editPage.find( "input[name='chac']" ).attr( "value" );
+		var newConjugada	= $.parseJSON( editPage.find( "input[name='conjugada']" ).attr( "value" ) );
+		
+		this.curso			= newCurso;
+		this.disciplina		= newDisciplina;
+		this.cha			= newCha;
+		this.ano			= newAno;
+		this.sem			= newSem;
+		this.turma			= newTurma;
+		this.sub			= newSub;
+		this.numeroAlunos	= newNumeroAlunos;
+		this.numeroSub		= newNumeroSub;
+		this.cht			= newCht;
+		this.chp			= newChp;
+		this.chac			= newChac;
+		this.conjugada		= newConjugada;
+				
+		abstractActivity.prototype.save.call( this )
 	}
 }

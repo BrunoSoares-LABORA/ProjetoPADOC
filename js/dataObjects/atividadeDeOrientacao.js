@@ -1,11 +1,11 @@
-function atividadeDeOrientacao ( activityId, serializedObject, isCopy ) {
-	abstractActivity.call( this, activityId );
+function atividadeDeOrientacao ( activityId, location, serializedObject, isCopy ) {
+	abstractActivity.call( this, activityId, location );
 	var selfObject = this;
 	
 	this.activityType = "atividadeDeOrientacao";
 	
 	if ( isCopy != true ) {
-		this.copy = new atividadeDeOrientacao( activityId, serializedObject, true );
+		this.copy = new atividadeDeOrientacao( activityId, location, serializedObject, true );
 	} else {
 		this.copy = null;
 	}
@@ -24,9 +24,8 @@ function atividadeDeOrientacao ( activityId, serializedObject, isCopy ) {
 		this.tipoOrientacao = serializedObject['tipo-orientacao'];
 	} catch( e ){}
 	
-	this.toJSON = function () {
-		jsonDict = {
-			"activity-type" : this.activityType,
+	this.toJSON = function ( fullSave ) {
+		var jsonDict = {
 			"titulo-do-trabalho" : this.tituloDoTrabalho,
 			"tabela" : this.tabela,
 			"estudante" : this.estudante,
@@ -38,6 +37,12 @@ function atividadeDeOrientacao ( activityId, serializedObject, isCopy ) {
 			"cha" : this.cha,
 			"periodo" : this.periodo,
 			"tipo-orientacao" : this.tipoOrientacao
+		}
+		
+		if( fullSave === true ) {
+			jsonDict["activity-type"] = this.activityType;
+			jsonDict["copy"] = JSON.parse( this.copy.toJSON( false ) );
+			jsonDict["removed"] = this.removed;
 		}
 		
 		return JSON.stringify( jsonDict );
@@ -118,5 +123,7 @@ function atividadeDeOrientacao ( activityId, serializedObject, isCopy ) {
 		this.cha				= newCha;
 		this.periodo			= newPeriodo;
 		this.tipoOrientacao		= newTipoOrientacao;
+		
+		abstractActivity.prototype.save.call( this )
 	}
 }

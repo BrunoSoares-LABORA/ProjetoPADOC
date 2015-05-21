@@ -65,11 +65,12 @@ function dataRequest () {
 	this.execDone = function () {
 		if( this.requestStatus == 200 ) {
 			storeReturn = JSON.stringify( this.requestReturn );
-			localStorage.setItem( "siape_docente", storeReturn );
+			sessionStorage.setItem( "siape_docente", storeReturn );
 			
-			siape_docente = this.requestReturn;
+			loadStoredItens();
 			
 			$( ".vertical_menu a:nth-child(2)" ).trigger( "click" );
+			loadActivities();
 		}
 	}
 	

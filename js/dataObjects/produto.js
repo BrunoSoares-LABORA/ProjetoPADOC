@@ -1,11 +1,11 @@
-function produto ( activityId, serializedObject, isCopy ) {
-	abstractActivity.call( this, activityId );
+function produto ( activityId, location, serializedObject, isCopy ) {
+	abstractActivity.call( this, activityId, location );
 	var selfObject = this;
 	
 	this.activityType = "produto";
 	
 	if ( isCopy != true ) {
-		this.copy = new produto( activityId, serializedObject, true );
+		this.copy = new produto( activityId, location, serializedObject, true );
 	} else {
 		this.copy = null;
 	}
@@ -14,36 +14,41 @@ function produto ( activityId, serializedObject, isCopy ) {
 		this.descricao = serializedObject['descricao'];
 		this.titulo = serializedObject['titulo'];
 		this.autoria = serializedObject['autoria'];
-		this.associacao_do_produto = serializedObject['associacao-do-produto'];
-		this.projeto_associado = serializedObject['projeto-associado'];
+		this.associacaoDoProduto = serializedObject['associacao-do-produto'];
+		this.projetoAssociado = serializedObject['projeto-associado'];
 		this.veiculacao = serializedObject['veiculacao'];
 		this.local = serializedObject['local'];
 		this.data = serializedObject['data'];
-		this.ano_da_publicacao = serializedObject['ano-da-publicacao'];
-		this.pagina_inicial = serializedObject['pagina-inicial'];
-		this.pagina_final = serializedObject['pagina-final'];
-		this.numero_de_paginas = serializedObject['numero-de-paginas'];
-		this.numero_da_patente = serializedObject['numero-da-patente'];
+		this.anoDaPublicacao = serializedObject['ano-da-publicacao'];
+		this.paginaInicial = serializedObject['pagina-inicial'];
+		this.paginaFinal = serializedObject['pagina-final'];
+		this.numeroDePaginas = serializedObject['numero-de-paginas'];
+		this.numeroDaPatente = serializedObject['numero-da-patente'];
 		this.editora = serializedObject['editora'];
 	} catch( e ){}
 	
-	this.toJSON = function () {
-		jsonDict = {
-			"activity-type" : this.activityType,
+	this.toJSON = function ( fullSave ) {
+		var jsonDict = {
 			"descricao" : this.descricao,
 			"titulo" : this.titulo,
 			"autoria" : this.autoria,
-			"associacao-do-produto" : this.associacao_do_produto,
-			"projeto-associado" : this.projeto_associado,
+			"associacao-do-produto" : this.associacaoDoProduto,
+			"projeto-associado" : this.projetoAssociado,
 			"veiculacao" : this.veiculacao,
 			"local" : this.local,
 			"data" : this.data,
-			"ano-da-publicacao" : this.ano_da_publicacao,
-			"pagina-inicial" : this.pagina_inicial,
-			"pagina-final" : this.pagina_final,
-			"numero-de-paginas" : this.numero_de_paginas,
-			"numero-da-patente" : this.numero_da_patente,
+			"ano-da-publicacao" : this.anoDaPublicacao,
+			"pagina-inicial" : this.paginaInicial,
+			"pagina-final" : this.paginaFinal,
+			"numero-de-paginas" : this.numeroDePaginas,
+			"numero-da-patente" : this.numeroDaPatente,
 			"editora" : this.editora
+		}
+		
+		if( fullSave === true ) {
+			jsonDict["activity-type"] = this.activityType;
+			jsonDict["copy"] = JSON.parse( this.copy.toJSON( false ) );
+			jsonDict["removed"] = this.removed;
 		}
 		
 		return JSON.stringify( jsonDict );
@@ -64,7 +69,7 @@ function produto ( activityId, serializedObject, isCopy ) {
 	this.getOverviewTableTr = function () {
 		var formTableTr = $( "<tr>" +
 			"<td>" + this.titulo + "</td>" +
-			"<td>" + this.projeto_associado + "</td>" +
+			"<td>" + this.projetoAssociado + "</td>" +
 			"<td>" + this.local + "</td>" +
 			"<td>" + this.data + "</td>" +
 			"<td class='action_td'>" +
@@ -85,16 +90,16 @@ function produto ( activityId, serializedObject, isCopy ) {
 		editPage.find( "textarea[name='descricao']" ).val( this.descricao );
 		editPage.find( "input[name='titulo']" ).attr( "value", this.titulo );
 		editPage.find( "input[name='autoria']" ).attr( "value", this.autoria );
-		editPage.find( "input[name='associacao_do_produto']" ).attr( "value", this.associacao_do_produto );
-		editPage.find( "textarea[name='projeto_associado']" ).val( this.projeto_associado );
+		editPage.find( "input[name='associacao_do_produto']" ).attr( "value", this.associacaoDoProduto );
+		editPage.find( "textarea[name='projeto_associado']" ).val( this.projetoAssociado );
 		editPage.find( "textarea[name='veiculacao']" ).val( this.veiculacao );
 		editPage.find( "input[name='local']" ).attr( "value", this.local );
 		editPage.find( "input[name='data']" ).attr( "value", this.data );
-		editPage.find( "input[name='ano_da_publicacao']" ).attr( "value", this.ano_da_publicacao );
-		editPage.find( "input[name='pagina_inicial']" ).attr( "value", this.pagina_inicial );
-		editPage.find( "input[name='pagina_final']" ).attr( "value", this.pagina_final );
-		editPage.find( "input[name='numero_de_paginas']" ).attr( "value", this.numero_de_paginas );
-		editPage.find( "input[name='numero_da_patente']" ).attr( "value", this.numero_da_patente );
+		editPage.find( "input[name='ano_da_publicacao']" ).attr( "value", this.anoDaPublicacao );
+		editPage.find( "input[name='pagina_inicial']" ).attr( "value", this.paginaInicial );
+		editPage.find( "input[name='pagina_final']" ).attr( "value", this.paginaFinal );
+		editPage.find( "input[name='numero_de_paginas']" ).attr( "value", this.numeroDePaginas );
+		editPage.find( "input[name='numero_da_patente']" ).attr( "value", this.numeroDaPatente );
 		editPage.find( "input[name='editora']" ).attr( "value", this.editora );
 		editViewDiv.append( editPage );
 	}
@@ -118,16 +123,18 @@ function produto ( activityId, serializedObject, isCopy ) {
 		this.descricao = newDescricao;
 		this.titulo = newTitulo;
 		this.autoria = newAutoria;
-		this.associacao_do_produto = newAssociacaoDoProduto;
-		this.projeto_associado = newProjetoAssociado;
+		this.associacaoDoProduto = newAssociacaoDoProduto;
+		this.projetoAssociado = newProjetoAssociado;
 		this.veiculacao = newVeiculacao;
 		this.local = newLocal;
 		this.data = newData;
-		this.ano_da_publicacao = newAnoDaPublicacao;
-		this.pagina_inicial = newPaginaInicial;
-		this.pagina_final = newPaginaFinal;
-		this.numero_de_paginas = newNumeroDePaginas;
-		this.numero_da_patente = newNumeroDaPatente;
+		this.anoDaPublicacao = newAnoDaPublicacao;
+		this.paginaInicial = newPaginaInicial;
+		this.paginaFinal = newPaginaFinal;
+		this.numeroDePaginas = newNumeroDePaginas;
+		this.numeroDaPatente = newNumeroDaPatente;
 		this.editora = newEditora;
+		
+		abstractActivity.prototype.save.call( this )
 	}
 }

@@ -30,7 +30,7 @@ function pageController ( vPageContent, vloading ) {
 	
 	this.setLastPage = function ( pageName ) {
 		storeReturn = JSON.stringify( pageName );
-		localStorage.setItem( "last_page", storeReturn );
+		sessionStorage.setItem( "last_page", storeReturn );
 		this.lastPage = pageName;
 		this.firstLoad = false;
 	}

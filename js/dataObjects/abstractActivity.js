@@ -1,8 +1,10 @@
-function abstractActivity ( activityId ) {
+function abstractActivity ( activityId, location ) {
 	var selfObject = this;
 	
 	this.activityType = "abstractActivity";
 	this.id = activityId;
+	this.location = location;
+	this.removed = false;
 	
 	this.getEditButton = function () {
 		var activityType = "";
@@ -45,4 +47,52 @@ function abstractActivity ( activityId ) {
 		
 		$.ajax( ajaxOpt );
 	}
+	
+	this.getDiff = function() {
+		var notAttr = [
+			'activityType', 'id', 'location', 'removed', 'getEditButton', 'showEditView', 'getDiff', 'copy', 'toJSON',
+			'getTableHeader', 'getOverviewTableTr', 'createEditView', 'save'
+		];
+		
+		var changes = []
+		for( var key in this ) {
+			if( notAttr.indexOf( key ) == -1 && ( this.copy[ key ] != this[ key ] ) ) {
+				change = {
+					'activityType' : this.activityType,
+					'id' : this.id,
+					'attribute' : key,
+					'original' : this.copy[ key ],
+					'latestVersion' : this[key]
+				}
+				changes.push( change );
+			}
+		}
+		
+		return changes;
+	}
+	
+	this.save = function() {
+		abstractActivity.prototype.save.call( this );
+	}
+}
+
+abstractActivity.prototype.save = function() {
+	var activityType;
+	for (var activity_name in  activities_name ) {
+	  if( activities_name[activity_name] === this.activityType ) {
+		  activityType = activity_name;
+		  break;
+	  }
+	}
+	
+	var oldActivity = siape_docente['periodos'][ this.location['period'] ][ activityType ][ this.location['activity'] ];
+	var newActivity = JSON.parse( this.toJSON( true ) );
+	
+	siape_docente['periodos'][ this.location['period'] ][ activityType ][ this.location['activity'] ] = newActivity;
+	sessionStorage.setItem( "siape_docente", JSON.stringify( siape_docente ) );
+	
+	$( "#activity_view_background" ).fadeToggle( "fast", function() {
+		$( "#view_title" ).html( '' );
+		$( "#activity_view" ).html( '' );
+	});
 }

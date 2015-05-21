@@ -1,11 +1,11 @@
-function atividadeAdministrativa ( activityId, serializedObject, isCopy ) {
-	abstractActivity.call( this, activityId );
+function atividadeAdministrativa ( activityId, location, serializedObject, isCopy ) {
+	abstractActivity.call( this, activityId, location );
 	var selfObject = this;
 	
 	this.activityType = "atividadeAdministrativa";
 	
 	if ( isCopy != true ) {
-		this.copy = new atividadeAdministrativa( activityId, serializedObject, true );
+		this.copy = new atividadeAdministrativa( activityId, location, serializedObject, true );
 	} else {
 		this.copy = null;
 	}
@@ -16,20 +16,25 @@ function atividadeAdministrativa ( activityId, serializedObject, isCopy ) {
 		this.periodo = serializedObject['periodo'];
 		this.descricao = serializedObject['descricao'];
 		this.emissor = serializedObject['emissor'];
-		this.orgao_servido = serializedObject['orgao-servido'];
+		this.orgaoServido = serializedObject['orgao-servido'];
 		this.portaria = serializedObject['portaria'];
 	} catch( e ){}
 	
-	this.toJSON = function () {
-		jsonDict = {
-			"activity-type" : this.activityType,
+	this.toJSON = function ( fullSave ) {
+		var jsonDict = {
 			"tabela" : this.tabela,
 			"cha" : this.cha,
 			"periodo" : this.periodo,
 			"descricao" : this.descricao,
 			"emissor" : this.emissor,
-			"orgao-servido" : this.orgao_servido,
+			"orgao-servido" : this.orgaoServido,
 			"portaria" : this.portaria
+		}
+		
+		if( fullSave === true ) {
+			jsonDict["activity-type"] = this.activityType;
+			jsonDict["copy"] = JSON.parse( this.copy.toJSON( false ) );
+			jsonDict["removed"] = this.removed;
 		}
 		
 		return JSON.stringify( jsonDict );
@@ -69,8 +74,41 @@ function atividadeAdministrativa ( activityId, serializedObject, isCopy ) {
 		return formTableTr;
 	}
 	
-	this.createEditView = function ( titleView, editViewDiv ) {
-		titleView.html( "Editar Atividade Administrativa" );
-		editViewDiv.append( "<h4>" + this.tabela + "</h4>" ); 
+	this.createEditView = function ( titleView, editViewDiv, editPage ) {
+		var displayProductId = parseInt( this.id ) + 1;
+		titleView.html( "Editar Atividade Administrativa #" + displayProductId + "" );
+		
+		editPage.find( "textarea[name='descricao']" ).val( this.descricao );
+		editPage.find( "input[name='tabela']" ).attr( "value", this.tabela );
+		editPage.find( "input[name='emissor']" ).attr( "value", this.emissor );
+		editPage.find( "input[name='orgao_servido']" ).attr( "value", this.orgaoServido );
+		editPage.find( "input[name='portaria']" ).attr( "value", this.portaria );
+		editPage.find( "input[name='cha']" ).attr( "value", this.cha );
+		editPage.find( "input[name='periodo_inicio']" ).attr( "value", this.periodo['inicio'] );
+		editPage.find( "input[name='periodo_fim']" ).attr( "value", this.periodo['fim'] );
+		editViewDiv.append( editPage );
+	}
+	
+	this.save = function ( editPage ) {
+		var newDescricao	= editPage.find( "textarea[name='descricao']" ).val();
+		var newTabela		= editPage.find( "input[name='tabela']" ).attr( "value" );
+		var newEmissor		= editPage.find( "input[name='emissor']" ).attr( "value" );
+		var newOrgaoServido	= editPage.find( "input[name='orgao_servido']" ).attr( "value" );
+		var newPortaria		= editPage.find( "input[name='portaria']" ).attr( "value" );
+		var newCha			= editPage.find( "input[name='cha']" ).attr( "value" );
+		var newPeriodo		= {
+			'inicio' : editPage.find( "input[name='periodo_inicio']" ).attr( "value" ),
+			'fim' : editPage.find( "input[name='periodo_fim']" ).attr( "value" )
+		}
+		
+		this.descricao		= newDescricao;
+		this.tabela			= newTabela;
+		this.emissor		= newEmissor;
+		this.orgaoServido	= newOrgaoServido;
+		this.portaria		= newPortaria;
+		this.cha			= newCha;
+		this.periodo		= newPeriodo;
+		
+		abstractActivity.prototype.save.call( this )
 	}
 }

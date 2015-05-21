@@ -1,11 +1,11 @@
-function atividadeEmProjeto ( activityId, serializedObject, isCopy ) {
-	abstractActivity.call( this, activityId );
+function atividadeEmProjeto ( activityId, location, serializedObject, isCopy ) {
+	abstractActivity.call( this, activityId, location );
 	var selfObject = this;
 	
 	this.activityType = "atividadeEmProjeto";
 	
 	if ( isCopy != true ) {
-		this.copy = new atividadeEmProjeto( activityId, serializedObject, true );
+		this.copy = new atividadeEmProjeto( activityId, location, serializedObject, true );
 	} else {
 		this.copy = null;
 	}
@@ -22,9 +22,8 @@ function atividadeEmProjeto ( activityId, serializedObject, isCopy ) {
 		this.periodo = serializedObject['periodo'];
 	} catch( e ){}
 	
-	this.toJSON = function () {
-		jsonDict = {
-			"activity-type" : this.activityType,
+	this.toJSON = function ( fullSave ) {
+		var jsonDict = {
 			"titulo-do-projeto" : this.tituloDoProjeto,
 			"tabela" : this.tabela,
 			"unidade-responsavel" : this.unidadeResponsavel,
@@ -34,6 +33,12 @@ function atividadeEmProjeto ( activityId, serializedObject, isCopy ) {
 			"financiado" : this.financiado,
 			"cha" : this.cha,
 			"periodo" : this.periodo
+		}
+		
+		if( fullSave === true ) {
+			jsonDict["activity-type"] = this.activityType;
+			jsonDict["copy"] = JSON.parse( this.copy.toJSON( false ) );
+			jsonDict["removed"] = this.removed;
 		}
 		
 		return JSON.stringify( jsonDict );
@@ -106,5 +111,7 @@ function atividadeEmProjeto ( activityId, serializedObject, isCopy ) {
 		this.financiado 			= newFinanciado;
 		this.cha 					= newCha;
 		this.periodo 				= newPeriodo;
+		
+		abstractActivity.prototype.save.call( this )
 	}
 }
