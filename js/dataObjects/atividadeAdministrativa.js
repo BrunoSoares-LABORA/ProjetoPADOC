@@ -58,7 +58,7 @@ function atividadeAdministrativa ( activityId, location, serializedObject, isCop
 			descricao += "...";
 		}
 		
-		var formTableTr = "<tr>" +
+		var formTableTr = "<tr activityId='" + this.id + "'>" +
 			"<td>" + this.tabela + "</td>" +
 			"<td>" + this.periodo['inicio'] + "-" + this.periodo['fim'] + "</td>" +
 			"<td>" + this.descricao + "</td>" +

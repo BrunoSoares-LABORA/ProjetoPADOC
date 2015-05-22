@@ -67,7 +67,7 @@ function produto ( activityId, location, serializedObject, isCopy ) {
 	}
 	
 	this.getOverviewTableTr = function () {
-		var formTableTr = $( "<tr>" +
+		var formTableTr = $( "<tr activityId='" + this.id + "'>" +
 			"<td>" + this.titulo + "</td>" +
 			"<td>" + this.projetoAssociado + "</td>" +
 			"<td>" + this.local + "</td>" +

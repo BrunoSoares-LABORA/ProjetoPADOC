@@ -48,7 +48,7 @@ function atividadeDeExtensao ( activityId, location, serializedObject, isCopy ) 
 	}
 	
 	this.getOverviewTableTr = function () {
-		var formTableTr = "<tr>" +
+		var formTableTr = "<tr activityId='" + this.id + "'>" +
 			"<td>" + this.tabela + "</td>" +
 			"<td>" + this.clientela + "</td>" +
 			"<td>" + this.cha + "</td>" +

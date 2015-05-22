@@ -56,7 +56,7 @@ function atividadeEmProjeto ( activityId, location, serializedObject, isCopy ) {
 	}
 	
 	this.getOverviewTableTr = function () {
-		var formTableTr = "<tr>" +
+		var formTableTr = "<tr activityId='" + this.id + "'>" +
 			"<td>" + this.tituloDoProjeto + "</td>" +
 			"<td>" + this.tipo + "</td>" +
 			"<td>" + this.cha + "</td>" +

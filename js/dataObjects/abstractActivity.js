@@ -79,10 +79,10 @@ function abstractActivity ( activityId, location ) {
 abstractActivity.prototype.save = function() {
 	var activityType;
 	for (var activity_name in  activities_name ) {
-	  if( activities_name[activity_name] === this.activityType ) {
-		  activityType = activity_name;
-		  break;
-	  }
+		if( activities_name[activity_name] === this.activityType ) {
+			activityType = activity_name;
+			break;
+		}
 	}
 	
 	var oldActivity = siape_docente['periodos'][ this.location['period'] ][ activityType ][ this.location['activity'] ];
@@ -90,6 +90,11 @@ abstractActivity.prototype.save = function() {
 	
 	siape_docente['periodos'][ this.location['period'] ][ activityType ][ this.location['activity'] ] = newActivity;
 	sessionStorage.setItem( "siape_docente", JSON.stringify( siape_docente ) );
+	
+	// Update activity relatory row, if necessary.
+	try {
+		$( "#" + activityType ).find( "tr[activityId='" + this.id + "']" ).replaceWith( this.getOverviewTableTr() );
+	} catch( e ) {}
 	
 	$( "#activity_view_background" ).fadeToggle( "fast", function() {
 		$( "#view_title" ).html( '' );

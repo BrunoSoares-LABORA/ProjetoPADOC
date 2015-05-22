@@ -49,7 +49,7 @@ function atividadeAcademicaEspecial ( activityId, location, serializedObject, is
 	}
 	
 	this.getOverviewTableTr = function () {
-		var formTableTr = "<tr>" +
+		var formTableTr = "<tr activityId='" + this.id + "'>" +
 			"<td>" + this.tabela + "</td>" +
 			"<td>" + this.periodo['inicio'] + "-" + this.periodo['fim'] + "</td>" +
 			"<td>" + this.clientela + "</td>" +

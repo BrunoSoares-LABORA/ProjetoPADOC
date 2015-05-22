@@ -67,7 +67,7 @@ function atividadeDeEnsino ( activityId, location, serializedObject, isCopy ) {
 	}
 	
 	this.getOverviewTableTr = function () {
-		var formTableTr = "<tr>" +
+		var formTableTr = "<tr activityId='" + this.id + "'>" +
 			"<td>" + this.curso + "</td>" +
 			"<td>" + this.disciplina + "</td>" +
 			"<td>" + this.ano + "/" + this.sem + "</td>" +

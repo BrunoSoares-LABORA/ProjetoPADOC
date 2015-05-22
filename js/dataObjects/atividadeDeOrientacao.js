@@ -61,7 +61,7 @@ function atividadeDeOrientacao ( activityId, location, serializedObject, isCopy 
 	}
 	
 	this.getOverviewTableTr = function () {
-		var formTableTr = "<tr>" +
+		var formTableTr = "<tr activityId='" + this.id + "'>" +
 			"<td>" + this.tituloDoTrabalho + "</td>" +
 			"<td>" + this.estudante + "</td>" +
 			"<td>" + this.tipoOrientacao + "</td>" +
