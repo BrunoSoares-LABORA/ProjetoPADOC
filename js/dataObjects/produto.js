@@ -3,12 +3,9 @@ function produto ( activityId, location, serializedObject, isCopy ) {
 	var selfObject = this;
 	
 	this.activityType = "produto";
-	
-	if ( isCopy != true ) {
-		this.copy = new produto( activityId, location, serializedObject, true );
-	} else {
-		this.copy = null;
-	}
+	this.title = "Produto";
+	this.isCopy = ( isCopy === true ) ? true : false;
+	this.defineObjectCommonAttr( serializedObject );
 	
 	try {
 		this.descricao = serializedObject['descricao'];
@@ -46,7 +43,6 @@ function produto ( activityId, location, serializedObject, isCopy ) {
 		}
 		
 		if( fullSave === true ) {
-			jsonDict["activity-type"] = this.activityType;
 			jsonDict["copy"] = JSON.parse( this.copy.toJSON( false ) );
 			jsonDict["removed"] = this.removed;
 		}
@@ -74,19 +70,14 @@ function produto ( activityId, location, serializedObject, isCopy ) {
 			"<td>" + this.data + "</td>" +
 			"<td class='action_td'>" +
 				this.getEditButton() +
-				"<a href='javascript:void(0)'>" +
-					"<img src='images/delete_icon.png' />" +
-				"</a>" +
+				this.getDeleteButton() +
 			"</td>" +
 		"</tr>" );
 		
 		return formTableTr;
 	}
 	
-	this.createEditView = function ( titleView, editViewDiv, editPage ) {		
-		var displayProductId = parseInt( this.id ) + 1;
-		titleView.html( "Editar Produto #" + displayProductId + "" );
-				
+	this.createEditView = function ( editViewDiv, editPage ) {						
 		editPage.find( "textarea[name='descricao']" ).val( this.descricao );
 		editPage.find( "input[name='titulo']" ).attr( "value", this.titulo );
 		editPage.find( "input[name='autoria']" ).attr( "value", this.autoria );
@@ -135,6 +126,6 @@ function produto ( activityId, location, serializedObject, isCopy ) {
 		this.numeroDaPatente = newNumeroDaPatente;
 		this.editora = newEditora;
 		
-		abstractActivity.prototype.save.call( this )
+		this._save();
 	}
 }

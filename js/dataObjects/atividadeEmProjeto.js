@@ -3,12 +3,9 @@ function atividadeEmProjeto ( activityId, location, serializedObject, isCopy ) {
 	var selfObject = this;
 	
 	this.activityType = "atividadeEmProjeto";
-	
-	if ( isCopy != true ) {
-		this.copy = new atividadeEmProjeto( activityId, location, serializedObject, true );
-	} else {
-		this.copy = null;
-	}
+	this.title = "Atividade em Projeto";
+	this.isCopy = ( isCopy === true ) ? true : false;
+	this.defineObjectCommonAttr( serializedObject );
 	
 	try {
 		this.tituloDoProjeto = serializedObject['titulo-do-projeto'];
@@ -36,7 +33,6 @@ function atividadeEmProjeto ( activityId, location, serializedObject, isCopy ) {
 		}
 		
 		if( fullSave === true ) {
-			jsonDict["activity-type"] = this.activityType;
 			jsonDict["copy"] = JSON.parse( this.copy.toJSON( false ) );
 			jsonDict["removed"] = this.removed;
 		}
@@ -62,19 +58,14 @@ function atividadeEmProjeto ( activityId, location, serializedObject, isCopy ) {
 			"<td>" + this.cha + "</td>" +
 			"<td class='action_td'>" +
 				this.getEditButton() +
-				"<a href='javascript:void(0)'>" +
-					"<img src='images/delete_icon.png' />" +
-				"</a>" +
+				this.getDeleteButton() +
 			"</td>" +
 		"</tr>";
 		
 		return formTableTr;
 	}
 	
-	this.createEditView = function ( titleView, editViewDiv, editPage ) {
-		var displayProductId = parseInt( this.id ) + 1;
-		titleView.html( "Editar Atividade em Projeto #" + displayProductId + "" );
-		
+	this.createEditView = function ( editViewDiv, editPage ) {
 		editPage.find( "textarea[name='titulo_do_projeto']" ).val( this.tituloDoProjeto );
 		editPage.find( "input[name='tabela']" ).attr( "value", this.tabela );
 		editPage.find( "input[name='unidade_responsavel']" ).attr( "value", this.unidadeResponsavel );
@@ -112,6 +103,6 @@ function atividadeEmProjeto ( activityId, location, serializedObject, isCopy ) {
 		this.cha 					= newCha;
 		this.periodo 				= newPeriodo;
 		
-		abstractActivity.prototype.save.call( this )
+		this._save();
 	}
 }

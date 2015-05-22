@@ -18,7 +18,9 @@
 				
 				try {
 					periods_activities[object].forEach( function( item ) {
-						$( tableId ).append( item.getOverviewTableTr() );
+						if( item.removed === false ) {
+							$( tableId ).append( item.getOverviewTableTr() );
+						}
 					});
 				} catch( e2 ) {
 					console.log( "Não foi possível adicionar o objeto do item " + className + " a sua tabela: " + e2 );

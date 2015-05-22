@@ -1,30 +1,26 @@
 function atividadeDeEnsino ( activityId, location, serializedObject, isCopy ) {
 	abstractActivity.call( this, activityId, location );
-	
 	var selfObject = this;
 	
 	this.activityType = "atividadeDeEnsino";
-	
-	if ( isCopy != true ) {
-		this.copy = new atividadeDeEnsino( activityId, location, serializedObject, true );
-	} else {
-		this.copy = null;
-	}
+	this.title = "Atividade de Ensino";
+	this.isCopy = ( isCopy === true ) ? true : false;
+	this.defineObjectCommonAttr( serializedObject );
 	
 	try {
-		this.curso = serializedObject['curso'];
-		this.disciplina = serializedObject['disciplina'];
-		this.cha = serializedObject['cha'];
-		this.ano = serializedObject['ano'];
-		this.sem = serializedObject['sem'];
-		this.turma = serializedObject['turma'];
-		this.sub = serializedObject['sub'];
-		this.numeroAlunos = serializedObject['numero-alunos'];
-		this.numeroSub = serializedObject['numero-sub'];
-		this.cht = serializedObject['cht'];
-		this.chp = serializedObject['chp'];
-		this.chac = serializedObject['chac'];
-		this.conjugada = serializedObject['conjugada'];
+		this.curso			= serializedObject['curso'];
+		this.disciplina		= serializedObject['disciplina'];
+		this.cha			= serializedObject['cha'];
+		this.ano			= serializedObject['ano'];
+		this.sem			= serializedObject['sem'];
+		this.turma			= serializedObject['turma'];
+		this.sub			= serializedObject['sub'];
+		this.numeroAlunos	= serializedObject['numero-alunos'];
+		this.numeroSub		= serializedObject['numero-sub'];
+		this.cht			= serializedObject['cht'];
+		this.chp			= serializedObject['chp'];
+		this.chac			= serializedObject['chac'];
+		this.conjugada		= serializedObject['conjugada'];
 	} catch( e ){}
 	
 	this.toJSON = function ( fullSave ) {
@@ -45,7 +41,6 @@ function atividadeDeEnsino ( activityId, location, serializedObject, isCopy ) {
 		}
 		
 		if( fullSave === true ) {
-			jsonDict["activity-type"] = this.activityType;
 			jsonDict["copy"] = JSON.parse( this.copy.toJSON( false ) );
 			jsonDict["removed"] = this.removed;
 		}
@@ -75,19 +70,14 @@ function atividadeDeEnsino ( activityId, location, serializedObject, isCopy ) {
 			"<td>" + this.cha + "</td>" +
 			"<td class='action_td'>" +
 				this.getEditButton() +
-				"<a href='javascript:void(0)'>" +
-					"<img src='images/delete_icon.png' />" +
-				"</a>" +
+				this.getDeleteButton() +
 			"</td>" +
 		"</tr>";
 		
 		return formTableTr;
 	}
 	
-	this.createEditView = function ( titleView, editViewDiv, editPage ) {
-		var displayProductId = parseInt( this.id ) + 1;
-		titleView.html( "Editar Atividade de Ensino #" + displayProductId + "" );
-		
+	this.createEditView = function ( editViewDiv, editPage ) {
 		editPage.find( "input[name='curso']" ).attr( "value", this.curso );
 		editPage.find( "input[name='disciplina']" ).attr( "value", this.disciplina );
 		editPage.find( "input[name='cha']" ).attr( "value", this.cha );
@@ -100,7 +90,7 @@ function atividadeDeEnsino ( activityId, location, serializedObject, isCopy ) {
 		editPage.find( "input[name='cht']" ).attr( "value", this.cht );
 		editPage.find( "input[name='chp']" ).attr( "value", this.chp );
 		editPage.find( "input[name='chac']" ).attr( "value", this.chac );
-		editPage.find( "input[name='conjugada']" ).attr( "value", this.conjugada );
+		editPage.find( "input[name='conjugada']" ).prop( "checked", this.conjugada );
 		editViewDiv.append( editPage );
 	}
 	
@@ -117,7 +107,7 @@ function atividadeDeEnsino ( activityId, location, serializedObject, isCopy ) {
 		var newCht			= parseInt( editPage.find( "input[name='cht']" ).attr( "value" ) );
 		var newChp			= parseInt( editPage.find( "input[name='chp']" ).attr( "value" ) );
 		var newChac			= editPage.find( "input[name='chac']" ).attr( "value" );
-		var newConjugada	= $.parseJSON( editPage.find( "input[name='conjugada']" ).attr( "value" ) );
+		var newConjugada	= editPage.find( "input[name='conjugada']" ).prop( 'checked' );
 		
 		this.curso			= newCurso;
 		this.disciplina		= newDisciplina;
@@ -133,6 +123,6 @@ function atividadeDeEnsino ( activityId, location, serializedObject, isCopy ) {
 		this.chac			= newChac;
 		this.conjugada		= newConjugada;
 				
-		abstractActivity.prototype.save.call( this )
+		this._save();
 	}
 }

@@ -1,1 +1,22 @@
-<b>Página de visualização das modificações...</b>
+<script>
+	$(function() {
+		try {
+			var periods = siape_docente['periodos'];
+		} catch( e ) {
+			console.log( "Docente não informado.." );
+			return;
+		}
+		
+		for( object in periods_activities ) {
+			try {
+				periods_activities[object].forEach( function( item ) {
+					$( "#activity_diffs" ).append( printDiff( item.getDiff() ) );
+				});
+			} catch( e ) {
+				console.log( e );
+			}
+		}
+	});
+</script>
+
+<div id="activity_diffs"></div>
