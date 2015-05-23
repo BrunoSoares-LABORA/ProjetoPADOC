@@ -5,6 +5,7 @@ function abstractActivity ( activityId, location ) {
 	this.displayId = parseInt( this.id ) + 1;
 	this.location = location;
 	this.removed = false;
+	this.isNew = ( this.id % 2 == 0 );
 	
 	this.getActivityJsonName = function () {
 		var activityType;
@@ -73,13 +74,18 @@ function abstractActivity ( activityId, location ) {
 		
 		var changes = []
 		for( var key in this ) {
-			if( notAttr.indexOf( key ) == -1 && ( this.copy[ key ] != this[ key ] ) ) {
-				change = {
-					'attribute' : key,
-					'original' : this.copy[ key ],
-					'latestVersion' : this[key]
+			if( notAttr.indexOf( key ) == -1 ) {
+				var originalKey = serializeAttr( this.copy[ key ] );
+				var latestKey = serializeAttr( this[ key ] );
+				
+				if( originalKey != latestKey ) {
+					change = {
+						'attribute' : key,
+						'original' : this.copy[ key ],
+						'latestVersion' : this[ key ]
+					}
+					changes.push( change );
 				}
-				changes.push( change );
 			}
 		}
 			
@@ -87,6 +93,7 @@ function abstractActivity ( activityId, location ) {
 			'activityType' : this.getActivityJsonName(),
 			'id' : this.id,
 			'removed' : this.removed,
+			'isNew' : this.isNew,
 			'changes' : changes
 		}
 		
@@ -166,31 +173,61 @@ function deleteActivity ( activityType, activityId ) {
 }
 
 function printDiff ( activityDiff ) {
-	if( activityDiff['changes'].length == 0 ) {
-		return;
-	}
-	
 	var activity = periods_activities[ activityDiff['activityType'] ][ activityDiff['id'] ];
 	
-	var htmlDiff = "<table class='diff change'>" +
-		"<tr>" +
-			"<td colspan='3'>" + activity.title + " #" + activity.displayId + "</td>" +
-		"</tr>" +
-		"<tr>" +
-			"<td>Nome do atributo</td>" +
-			"<td>Valor original</td>" +
-			"<td>Valor atual</td>" +
-		"</tr>";
-	
-	activityDiff['changes'].forEach( function( diff ) {
-		htmlDiff += "<tr>" +
-			"<td>" + diff['attribute'] + "</td>" +
-			"<td>" + diff['original'] + "</td>" +
-			"<td>" + diff['latestVersion'] + "</td>" +
-		"</tr>";
-	});
-	
-	htmlDiff += "</table>";
+	var htmlDiff = "";
+	if( activityDiff['removed'] === true ) {
+		htmlDiff += "<div class='deleted'>" +
+			"<span class='diff_tag delete_tag'>REMOVIDO</span>" +
+			activity.title + " #" + activity.displayId +
+		"</div>";
+	} else if( activityDiff['changes'].length > 0 ) {
+		var isNew = activityDiff['isNew'];
+		var colspan = ( isNew ) ? 2 : 3;
+		var tag = ( isNew ) ? "ADICIONADO" : "MODIFICADO";
+		var oldLabel = ( isNew ) ? "" : "<td width='375px'>Valor antigo</td>";
+		var newLabel = ( isNew ) ? "<td>Valor</td>" : "<td>Novo valor</td>";
+		var tagClass = ( isNew ) ? "add_tag" : "modify_tag";
+		
+		htmlDiff += "<table class='diff'>" +
+			"<tr>" +
+				"<td colspan='" + colspan + "'>" +
+					"<span class='diff_tag " + tagClass + "'>" + tag + "</span>" +
+					activity.title + " #" + activity.displayId +
+				"</td>" +
+			"</tr>" +
+			"<tr>" +
+				"<td width='150px'>Atributo</td>" +
+				oldLabel +
+				newLabel +
+			"</tr>";
+		
+		activityDiff['changes'].forEach( function( diff ) {
+			var original = serializeAttr( diff['original'] );
+			var latestVersion = serializeAttr( diff['latestVersion'] );
+			var oldValueTd = ( isNew ) ? "" : "<td class='old'>" + original + "</td>";
+			
+			htmlDiff += "<tr>" +
+				"<td class='attribute'>" + diff['attribute'] + "</td>" +
+				oldValueTd +
+				"<td class='new'>" + latestVersion + "</td>" +
+			"</tr>";
+		});
+		
+		htmlDiff += "</table>";
+	}
 	
 	return htmlDiff;
+}
+
+function serializeAttr( dict ) {
+	if( typeof dict === 'object' ) {
+		var tmpDict = "";
+		for( var key in dict ) {
+			tmpDict += key + ": " + dict[key] + "<br>";
+		}
+		dict = tmpDict;
+	}
+	
+	return dict;
 }
