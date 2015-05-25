@@ -5,7 +5,7 @@ function abstractActivity ( activityId, location ) {
 	this.displayId = parseInt( this.id ) + 1;
 	this.location = location;
 	this.removed = false;
-	this.isNew = false;
+	this.isNew = ( this.id % 2  == 0 );
 	
 	this.getActivityJsonName = function () {
 		var activityType;

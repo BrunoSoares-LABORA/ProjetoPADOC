@@ -7,6 +7,11 @@
 			return;
 		}
 		
+		var inst = new instructor( siape_docente );
+		inst.getViewTable( function( viewElement ) {
+			$( "#activity_container" ).prepend( viewElement );
+		});
+		
 		for( object in periods_activities ) {
 			try {
 				var className = String( activities_name[object] );

@@ -441,7 +441,7 @@ a {
 .diff_tag {
 	font-size: 13px;
 	position: absolute;
-	margin-top: -1.5px;
+	margin-top: -2px;
 	left: 20px;
 	padding: 3px 10px;
 	border-radius: 10px;
@@ -452,7 +452,7 @@ a {
 
 .add_tag {
 	color: #fff;
-	background: #3d6b21;
+	background: #7dab61;
 }
 
 .modify_tag {
