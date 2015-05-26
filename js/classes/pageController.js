@@ -11,21 +11,19 @@ function pageController ( vPageContent, vloading ) {
 	this.loading = $( vloading ) || null;
 
 	this.loadPage = function ( pageName, checkTable ) {
-		if( this.lastPage != pageName || this.firstLoad == true ) {
-			this.loading.show();
-			this.setLastPage( pageName );
-			
-			if( checkTable ) {
-				$( ".tab_selected" ).removeClass( "tab_selected" );
-				$( checkTable ).addClass( "tab_selected" );
-			}
-			
-			pageFile =  "pages/" + pageName + ".html";
-			
-			this.pageContent.load( pageFile, function( responseTxt, statusTxt, xhr ) {
-				selfObject.loading.hide();
-			});
+		this.loading.show();
+		this.setLastPage( pageName );
+		
+		if( checkTable ) {
+			$( ".tab_selected" ).removeClass( "tab_selected" );
+			$( checkTable ).addClass( "tab_selected" );
 		}
+		
+		pageFile =  "pages/" + pageName + ".html";
+		
+		this.pageContent.load( pageFile, function( responseTxt, statusTxt, xhr ) {
+			selfObject.loading.hide();
+		});
 	}
 	
 	this.setLastPage = function ( pageName ) {

@@ -102,13 +102,23 @@ a {
     border-image: linear-gradient(to right, #254a76, #6589b8) 1 100%; 
 }
 
-.top_menu a:last-child {
+.top_menu a:nth-last-child(2) {
 	border-right: 0;
 	padding-right: 0;
 }
 
 .top_menu a:hover {
 	text-decoration: underline;
+}
+
+#period_selector {
+	float: right;
+	border-right: 0 !important;
+	display: none;
+}
+
+#period_selector:hover {
+	text-decoration: none !important;
 }
 
 #body {
@@ -216,6 +226,17 @@ a {
 
 #activity_container table tr:last-child td:last-child, .diff tr:last-child td:last-child {
 	border-bottom-right-radius: 5px;
+}
+
+#activity_container td.label {
+	font-weight: bold;
+	background-color: #3568a7;
+	color: white;
+	text-align: right !important;
+}
+
+#instructor_data td {
+	text-align: left !important;
 }
 
 .action_td a {
@@ -537,6 +558,16 @@ a {
 
 .diff tr:nth-child(odd) td.attribute {
 	background: #fff !important;
+}
+
+.green_text {
+	color: green;
+	font-weight: bold;
+}
+
+.red_text {
+	color: red;
+	font-weight: bold;
 }
 
 #close_view {

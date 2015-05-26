@@ -67,10 +67,8 @@ function dataRequest () {
 			storeReturn = JSON.stringify( this.requestReturn );
 			sessionStorage.setItem( "siape_docente", storeReturn );
 			
-			loadStoredItens();
-			
+			reloadData();
 			$( ".vertical_menu a:nth-child(2)" ).trigger( "click" );
-			loadActivities();
 		}
 	}
 	

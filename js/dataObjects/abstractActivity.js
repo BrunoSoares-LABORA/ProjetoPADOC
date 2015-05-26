@@ -5,7 +5,7 @@ function abstractActivity ( activityId, location ) {
 	this.displayId = parseInt( this.id ) + 1;
 	this.location = location;
 	this.removed = false;
-	this.isNew = ( this.id % 2  == 0 );
+	this.isNew = false;
 	
 	this.getActivityJsonName = function () {
 		var activityType;
@@ -117,6 +117,11 @@ function abstractActivity ( activityId, location ) {
 			$( "#" + activityType ).find( "tr[activityId='" + this.id + "']" ).replaceWith( this.getOverviewTableTr() );
 		} catch( e ) {}
 		
+		// Update activity relatory instructor, if necessary.
+		try {
+			current_instructor.updatePerformedWorkload();
+		} catch( e ) {}
+		
 		// Close activity view.
 		$( "#activity_view_background" ).fadeToggle( "fast", function() {
 			$( "#view_title" ).html( '' );
@@ -127,10 +132,15 @@ function abstractActivity ( activityId, location ) {
 	this._delete = function() {
 		this._update();
 		
-		// Update activity relatory wor, if necessary.
+		// Update activity relatory row, if necessary.
 		try {
 			var activityType = this.getActivityJsonName();
 			$( "#" + activityType ).find( "tr[activityId='" + this.id + "']" ).remove();
+		} catch( e ) {}
+		
+		// Update activity relatory instructor, if necessary.
+		try {
+			current_instructor.updatePerformedWorkload();
 		} catch( e ) {}
 	}
 }

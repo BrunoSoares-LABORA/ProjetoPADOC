@@ -7,8 +7,7 @@
 			return;
 		}
 		
-		var inst = new instructor( siape_docente );
-		inst.getViewTable( function( viewElement ) {
+		current_instructor.getViewTable( function( viewElement ) {
 			$( "#activity_container" ).prepend( viewElement );
 		});
 		
