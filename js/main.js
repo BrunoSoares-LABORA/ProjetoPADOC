@@ -22,6 +22,10 @@ $( document ).ready( function() {
 		
 		pageController.loadCurrentPage();
 	});
+	
+	$( ".hidden_menu a" ).click( function( e ) {
+		$( ".hidden_menu" ).hide();
+	});
 });
 
 function reloadData() {
@@ -121,6 +125,11 @@ function loadActivities() {
 			console.log( "Atividade não encontrada no período do docente: " + activity );
 		}
 	}
+}
+
+function displayHiddenMenu( menuId ) {
+	var id = parseInt( menuId ) - 1;
+	$( ".hidden_menu:eq( " + id + ")" ).toggle();
 }
 
 function closeSearch() {

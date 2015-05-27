@@ -13,7 +13,6 @@
 		<script language="javascript" type="text/javascript" src="js/classes/pageController.js"></script>
 		<script language="javascript" type="text/javascript" src="js/requests/serverRequest.js"></script>
 		<script language="javascript" type="text/javascript" src="js/requests/dataRequest.js"></script>
-		
 		<script language="javascript" type="text/javascript" src="js/dataObjects/abstractActivity.js"></script>
 		<script language="javascript" type="text/javascript" src="js/dataObjects/atividadeDeEnsino.js"></script>
 		<script language="javascript" type="text/javascript" src="js/dataObjects/atividadeDeOrientacao.js"></script>
@@ -55,13 +54,22 @@
 				</div>
 			</div>
 			
-			<div class="web_content top_menu">
-				<a href="#">Adicionar atividade</a>
-				<a href="#">Adicionar produto</a>
-				<a href="#" onclick="closeSearch()">Fechar consulta</a>
-				<a id='period_selector'>
+			<div class="web_content top_menu" >
+				<a href="javascript:void(0)" onclick="displayHiddenMenu(1)">Adicionar atividade</a>
+				<div class="hidden_menu">
+					<a href="javascript:void(0)">Atividade acadêmica especial</a>
+					<a href="javascript:void(0)">Atividade administrativa</a>
+					<a href="javascript:void(0)">Atividade de ensino</a>
+					<a href="javascript:void(0)">Atividade de extensão</a>
+					<a href="javascript:void(0)">Atividade de orientação</a>
+					<a href="javascript:void(0)">Atividade de qualificação</a>
+					<a href="javascript:void(0)">Atividade em projeto</a>
+				</div>
+				<a href="javascript:void(0)">Adicionar produto</a>
+				<a href="javascript:void(0)" onclick="closeSearch()">Fechar consulta</a>
+				<a id="period_selector">
 					Período:
-					<select name='selected_period'></select>
+					<select name="selected_period"></select>
 				</a>
 			</div>
 			
