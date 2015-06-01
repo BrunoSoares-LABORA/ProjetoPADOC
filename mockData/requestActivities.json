@@ -482,15 +482,15 @@
 			]
 		},
 		{ 
-			"periodo" : { "inicio" : "01/01/2014", "fim" : "31/12/2014" },
+			"periodo" : { "inicio" : "01/01/2015", "fim" : "31/12/2015" },
 			"dados-do-docente": {
-				"nome": "FÁBIO NOGUEIRA DE LUCENA 2",
+				"nome": "FÁBIO NOGUEIRA DE LUCENA",
 				"unidade": "INSTITUTO DE INFORMÁTICA",
 				"titulacao": "Doutor",
 				"regime-de-trabalho": "DE",
 				"classe": "Associado",
 				"nivel": "4",
-				"ch-contratada": "1760",
+				"ch-contratada": "1660",
 				"email": "fabio@inf.ufg.br"
 			},
 			"afastamento": "DEPRECATED",
