@@ -43,6 +43,7 @@ function atividadeDeEnsino ( activityId, location, serializedObject, isCopy ) {
 		if( fullSave === true ) {
 			jsonDict["copy"] = JSON.parse( this.copy.toJSON( false ) );
 			jsonDict["removed"] = this.removed;
+			jsonDict["isNew"] = this.isNew;
 		}
 		
 		return JSON.stringify( jsonDict );

@@ -111,6 +111,10 @@ a {
 	text-decoration: underline;
 }
 
+.top_menu_oppened {
+	text-decoration: underline !important;
+}
+
 .hidden_menu {
 	position: absolute;
 	left: 20px;

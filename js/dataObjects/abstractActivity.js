@@ -24,7 +24,7 @@ function abstractActivity ( activityId, location ) {
 			if ( this.isCopy === false ) {
 				var className = String( this.activityType );
 				var copySerializedData = serializedObject;
-				if( typeof serializedObject['copy'] === 'object' ) {
+				if( serializedObject !== null && typeof serializedObject['copy'] === 'object' ) {
 					copySerializedData = serializedObject['copy'];
 				}
 				
@@ -36,8 +36,16 @@ function abstractActivity ( activityId, location ) {
 		
 		try {
 			if( this.isCopy === false ) {
-				if( typeof serializedObject['removed'] === 'boolean' ) {
+				if( serializedObject !== null && typeof serializedObject['removed'] === 'boolean' ) {
 					this.removed = serializedObject['removed'];
+				}
+			}
+		} catch( e ) {}
+		
+		try {
+			if( this.isCopy === false ) {
+				if( serializedObject !== null && typeof serializedObject['isNew'] === 'boolean' ) {
+					this.isNew = serializedObject['isNew'];
 				}
 			}
 		} catch( e ) {}
@@ -67,9 +75,10 @@ function abstractActivity ( activityId, location ) {
 	
 	this.getDiff = function() {
 		var notAttr = [
-			'activityType', 'id', 'location', 'removed', 'getEditButton', 'showEditView', 'getDiff', 'copy',
+			'activityType', 'id', 'title', 'removed', 'getEditButton', 'showEditView', 'getDiff', 'copy',
 			'toJSON', 'getTableHeader', 'getOverviewTableTr', 'createEditView', 'save', '_save', '_update',
-			'_delete', 'getDeleteButton', 'getActivityJsonName', 'defineObjectCommonAttr', 'isCopy'
+			'_delete', 'getDeleteButton', 'getActivityJsonName', 'defineObjectCommonAttr', 'isCopy', 'isNew',
+			'displayId', 'location'
 		];
 		
 		var changes = []
@@ -78,7 +87,7 @@ function abstractActivity ( activityId, location ) {
 				var originalKey = serializeAttr( this.copy[ key ] );
 				var latestKey = serializeAttr( this[ key ] );
 				
-				if( originalKey != latestKey ) {
+				if( originalKey != latestKey || this.isNew == true ) {
 					change = {
 						'attribute' : key,
 						'original' : this.copy[ key ],
@@ -104,22 +113,50 @@ function abstractActivity ( activityId, location ) {
 		var activityType = this.getActivityJsonName();
 		var newActivity = JSON.parse( this.toJSON( true ) );
 		
-		siape_docente['periodos'][ this.location['period'] ][ activityType ][ this.location['activity'] ] = newActivity;
+		var activityNode = siape_docente['periodos'][ this.location['period'] ][ activityType ];
+		var isNew = ( typeof activityNode[ this.location['activity'] ] == 'undefined' );
+		var cancelled = ( this.isNew && this.removed );
+		activityNode[ this.location['activity'] ] = newActivity;
+		
+		if( cancelled == true ) {
+			activityNode.splice( this.location['activity'], 1 );
+		}
+		
 		sessionStorage.setItem( "siape_docente", JSON.stringify( siape_docente ) );
+		
+		if ( isNew == true || cancelled == true ) {
+			reloadData();
+		}
 	}
 	
 	this._save = function () {
 		this._update();
 		
+		var activityType = this.getActivityJsonName();
+		// Add row in activity relatory, if necessary.
+		try {
+			var haveTable = ( $( "#" + activityType ).length > 0 );
+			var isAdded = ( $( "#" + activityType ).find( "tr[activityId='" + this.id + "']" ).length > 0 );
+			if( haveTable && !isAdded && !this.removed ) {
+				$( "#" + activityType ).append( this.getOverviewTableTr() );
+			}
+		} catch( e ) {}
+		
 		// Update activity relatory row, if necessary.
 		try {
-			var activityType = this.getActivityJsonName();
 			$( "#" + activityType ).find( "tr[activityId='" + this.id + "']" ).replaceWith( this.getOverviewTableTr() );
 		} catch( e ) {}
 		
 		// Update activity relatory instructor, if necessary.
 		try {
 			current_instructor.updatePerformedWorkload();
+		} catch( e ) {}
+		
+		// If item is added in the diff page, reload it!
+		try {
+			if( last_page == "ver_modificacoes" ) {
+				pageController.loadCurrentPage();
+			}
 		} catch( e ) {}
 		
 		// Close activity view.
@@ -138,11 +175,56 @@ function abstractActivity ( activityId, location ) {
 			$( "#" + activityType ).find( "tr[activityId='" + this.id + "']" ).remove();
 		} catch( e ) {}
 		
+		// Update isNew and removed relatory next rows, if necessary.
+		try {
+			if( this.isNew && this.removed ) {
+				for( i = this.id; i < periods_activities[ activityType ].length; i++ ) {
+					var updateActivity = periods_activities[ activityType ][i];
+					$( "#" + activityType ).find( "tr[activityId='" + updateActivity.displayId + "']" ).replaceWith( updateActivity.getOverviewTableTr() );
+				}
+			}
+		} catch( e ) {}
+		
 		// Update activity relatory instructor, if necessary.
 		try {
 			current_instructor.updatePerformedWorkload();
 		} catch( e ) {}
 	}
+}
+
+function showAddView ( activityType ) {
+	var className = String( activities_name[activityType] );
+	var activityID = periods_activities[activityType].length;
+	var location = {
+		'period' : period_index,
+		'activity' : activityID
+	}
+	
+	var addTempItem = new window[className]( activityID, location, null, false );
+	addTempItem.isNew = true;
+	
+	ajaxOpt = {
+		url: "view/activities/" + addTempItem.activityType + "/add.html",
+		dataType: "text",
+		context: document.body,
+		success: function( response ) {
+			var editViewDiv = $( "#activity_view" );
+			var editPage = $( response );
+			
+			$( "#view_title" ).html( "Adicionar " + addTempItem.title + " #" + addTempItem.displayId );
+			
+			addTempItem.createEditView( editViewDiv, editPage );
+			
+			$( "#btn_save_activity" ).unbind();
+			$( "#btn_save_activity" ).click( function( e ) {
+				addTempItem.save( editPage );
+			});
+			
+			$( "#activity_view_background" ).fadeToggle( "fast" );
+		}
+	}
+	
+	$.ajax( ajaxOpt );
 }
 
 function showEditView ( activityType, activityId ) {
@@ -156,7 +238,7 @@ function showEditView ( activityType, activityId ) {
 			var editViewDiv = $( "#activity_view" );
 			var editPage = $( response );
 			
-			$( "#view_title" ).html( "Editar " + activity.title + " #" + activity.displayId + "" );
+			$( "#view_title" ).html( "Editar " + activity.title + " #" + activity.displayId );
 			
 			activity.createEditView( editViewDiv, editPage );
 			
@@ -186,6 +268,10 @@ function printDiff ( activityDiff ) {
 	var activity = periods_activities[ activityDiff['activityType'] ][ activityDiff['id'] ];
 	
 	var htmlDiff = "";
+	if( activityDiff['removed'] === true && activityDiff['isNew'] === true ) {
+		return htmlDiff;
+	}
+	
 	if( activityDiff['removed'] === true ) {
 		htmlDiff += "<div class='deleted'>" +
 			"<span class='diff_tag delete_tag'>REMOVIDO</span>" +

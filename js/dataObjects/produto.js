@@ -22,7 +22,22 @@ function produto ( activityId, location, serializedObject, isCopy ) {
 		this.numeroDePaginas = serializedObject['numero-de-paginas'];
 		this.numeroDaPatente = serializedObject['numero-da-patente'];
 		this.editora = serializedObject['editora'];
-	} catch( e ){}
+	} catch( e ){
+		this.descricao = null;
+		this.titulo = null;
+		this.autoria = null;
+		this.associacaoDoProduto = null;
+		this.projetoAssociado = null;
+		this.veiculacao = null;
+		this.local = null;
+		this.data = null;
+		this.anoDaPublicacao = null;
+		this.paginaInicial = null;
+		this.paginaFinal = null;
+		this.numeroDePaginas = null;
+		this.numeroDaPatente = null;
+		this.editora = null;
+	}
 	
 	this.toJSON = function ( fullSave ) {
 		var jsonDict = {
@@ -45,6 +60,7 @@ function produto ( activityId, location, serializedObject, isCopy ) {
 		if( fullSave === true ) {
 			jsonDict["copy"] = JSON.parse( this.copy.toJSON( false ) );
 			jsonDict["removed"] = this.removed;
+			jsonDict["isNew"] = this.isNew;
 		}
 		
 		return JSON.stringify( jsonDict );

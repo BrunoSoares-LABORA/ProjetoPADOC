@@ -24,6 +24,7 @@ $( document ).ready( function() {
 	});
 	
 	$( ".hidden_menu a" ).click( function( e ) {
+		$( ".top_menu a" ).removeClass( "top_menu_oppened" );
 		$( ".hidden_menu" ).hide();
 	});
 });
@@ -130,6 +131,12 @@ function loadActivities() {
 function displayHiddenMenu( menuId ) {
 	var id = parseInt( menuId ) - 1;
 	$( ".hidden_menu:eq( " + id + ")" ).toggle();
+	
+	$( ".top_menu a" ).removeClass( "top_menu_oppened" );
+	var visible = $( ".hidden_menu:eq( " + id + ")" ).is(':visible');
+	if( visible == true ) {
+		$( ".top_menu a:eq( " + id + ")" ).addClass( "top_menu_oppened" );
+	}
 }
 
 function closeSearch() {
