@@ -8,20 +8,82 @@ function atividadeDeEnsino ( activityId, location, serializedObject, isCopy ) {
 	this.defineObjectCommonAttr( serializedObject );
 	
 	try {
-		this.curso			= serializedObject['curso'];
-		this.disciplina		= serializedObject['disciplina'];
-		this.cha			= serializedObject['cha'];
-		this.ano			= serializedObject['ano'];
-		this.sem			= serializedObject['sem'];
-		this.turma			= serializedObject['turma'];
-		this.sub			= serializedObject['sub'];
-		this.numeroAlunos	= serializedObject['numero-alunos'];
-		this.numeroSub		= serializedObject['numero-sub'];
-		this.cht			= serializedObject['cht'];
-		this.chp			= serializedObject['chp'];
-		this.chac			= serializedObject['chac'];
-		this.conjugada		= serializedObject['conjugada'];
-	} catch( e ){}
+		this.curso = serializedObject['curso'];
+	} catch( e ){
+		this.curso = null;
+	}
+	
+	try {
+		this.disciplina = serializedObject['disciplina'];
+	} catch( e ){
+		this.disciplina = null;
+	}
+	
+	try {
+		this.cha = serializedObject['cha'];
+	} catch( e ){
+		this.cha = null;
+	}
+	
+	try {
+		this.ano = serializedObject['ano'];
+	} catch( e ){
+		this.ano = null;
+	}
+	
+	try {
+		this.sem = serializedObject['sem'];
+	} catch( e ){
+		this.sem = null;
+	}
+	
+	try {
+		this.turma = serializedObject['turma'];
+	} catch( e ){
+		this.turma = null;
+	}
+	
+	try {
+		this.sub = serializedObject['sub'];
+	} catch( e ){
+		this.sub = null;
+	}
+	
+	try {
+		this.numeroAlunos = serializedObject['numero-alunos'];
+	} catch( e ){
+		this.numeroAlunos = null;
+	}
+	
+	try {
+		this.numeroSub = serializedObject['numero-sub'];
+	} catch( e ){
+		this.numeroSub = null;
+	}
+	
+	try {
+		this.cht = serializedObject['cht'];
+	} catch( e ){
+		this.cht = null;
+	}
+	
+	try {
+		this.chp = serializedObject['chp'];
+	} catch( e ){
+		this.chp = null;
+	}
+	
+	try {
+		this.chac = serializedObject['chac'];
+	} catch( e ){
+		this.chac = null;
+	}
+	
+	try {
+		this.conjugada = serializedObject['conjugada'];
+	} catch( e ){
+		this.conjugada = null;
+	}
 	
 	this.toJSON = function ( fullSave ) {
 		var jsonDict = {

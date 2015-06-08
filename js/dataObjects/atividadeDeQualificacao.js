@@ -9,10 +9,30 @@ function atividadeDeQualificacao ( activityId, location, serializedObject, isCop
 	
 	try {
 		this.tabela = serializedObject['tabela'];
+	} catch( e ){
+		this.tabela = null;
+	}
+	
+	try {
 		this.descricao = serializedObject['descricao'];
+	} catch( e ){
+		this.descricao = null;
+	}
+	
+	try {
 		this.cha = serializedObject['cha'];
+	} catch( e ){
+		this.cha = null;
+	}
+	
+	try {
 		this.periodo = serializedObject['periodo'];
-	} catch( e ){}
+	} catch( e ){
+		this.periodo = {
+			'inicio' : null,
+			'fim' : null
+		}
+	}
 	
 	this.toJSON = function ( fullSave ) {
 		var jsonDict = {

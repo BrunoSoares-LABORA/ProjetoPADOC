@@ -9,15 +9,60 @@ function atividadeEmProjeto ( activityId, location, serializedObject, isCopy ) {
 	
 	try {
 		this.tituloDoProjeto = serializedObject['titulo-do-projeto'];
+	} catch( e ) {
+		this.tituloDoProjeto = null;
+	}
+	
+	try {
 		this.tabela = serializedObject['tabela'];
+	} catch( e ) {
+		this.tabela = null;
+	}
+	
+	try {
 		this.unidadeResponsavel = serializedObject['unidade-responsavel'];
+	} catch( e ) {
+		this.unidadeResponsavel = null;
+	}
+	
+	try {
 		this.tipo = serializedObject['tipo'];
+	} catch( e ) {
+		this.tipo = null;
+	}
+	
+	try {
 		this.situacao = serializedObject['situacao'];
+	} catch( e ) {
+		this.situacao = null;
+	}
+	
+	try {
 		this.funcao = serializedObject['funcao'];
+	} catch( e ) {
+		this.funcao = null;
+	}
+	
+	try {
 		this.financiado = serializedObject['financiado'];
+	} catch( e ) {
+		this.financiado = null;
+	}
+	
+	try {
 		this.cha = serializedObject['cha'];
+	} catch( e ) {
+		this.cha = null;
+	}
+	
+	try {
 		this.periodo = serializedObject['periodo'];
-	} catch( e ){}
+	} catch( e ){
+		this.periodo = {
+			'inicio' : null,
+			'fim' : null
+		}
+	}
 	
 	this.toJSON = function ( fullSave ) {
 		var jsonDict = {

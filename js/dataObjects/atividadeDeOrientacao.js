@@ -9,17 +9,72 @@ function atividadeDeOrientacao ( activityId, location, serializedObject, isCopy 
 	
 	try {
 		this.tituloDoTrabalho = serializedObject['titulo-do-trabalho'];
+	} catch( e ){
+		this.tituloDoTrabalho = null;
+	}
+	
+	try {
 		this.tabela = serializedObject['tabela'];
+	} catch( e ){
+		this.tabela = null;
+	}
+	
+	try {
 		this.estudante = serializedObject['estudante'];
+	} catch( e ){
+		this.estudante = null;
+	}
+	
+	try {
 		this.matricula = serializedObject['matricula'];
+	} catch( e ){
+		this.matricula = null;
+	}
+	
+	try {
 		this.funcaoDoDocente = serializedObject['funcao-do-docente'];
+	} catch( e ){
+		this.funcaoDoDocente = null;
+	}
+	
+	try {
 		this.nivel = serializedObject['nivel'];
+	} catch( e ){
+		this.nivel = null;
+	}
+	
+	try {
 		this.curso = serializedObject['curso'];
+	} catch( e ){
+		this.curso = null;
+	}
+	
+	try {
 		this.ies = serializedObject['ies'];
+	} catch( e ){
+		this.ies = null;
+	}
+	
+	try {
 		this.cha = serializedObject['cha'];
-		this.periodo = serializedObject['periodo'];
+	} catch( e ){
+		this.cha = null;
+	}
+	
+	try {
 		this.tipoOrientacao = serializedObject['tipo-orientacao'];
-	} catch( e ){}
+	} catch( e ){
+		this.tipoOrientacao = null;
+	}
+	
+	try {
+		this.periodo = serializedObject['periodo'];
+	} catch( e ){
+		this.periodo = {
+			'inicio' : null,
+			'fim' : null
+		}
+	}
 	
 	this.toJSON = function ( fullSave ) {
 		var jsonDict = {

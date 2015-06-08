@@ -9,33 +9,85 @@ function produto ( activityId, location, serializedObject, isCopy ) {
 	
 	try {
 		this.descricao = serializedObject['descricao'];
-		this.titulo = serializedObject['titulo'];
-		this.autoria = serializedObject['autoria'];
-		this.associacaoDoProduto = serializedObject['associacao-do-produto'];
-		this.projetoAssociado = serializedObject['projeto-associado'];
-		this.veiculacao = serializedObject['veiculacao'];
-		this.local = serializedObject['local'];
-		this.data = serializedObject['data'];
-		this.anoDaPublicacao = serializedObject['ano-da-publicacao'];
-		this.paginaInicial = serializedObject['pagina-inicial'];
-		this.paginaFinal = serializedObject['pagina-final'];
-		this.numeroDePaginas = serializedObject['numero-de-paginas'];
-		this.numeroDaPatente = serializedObject['numero-da-patente'];
-		this.editora = serializedObject['editora'];
 	} catch( e ){
 		this.descricao = null;
+	}
+	
+	try {
+		this.titulo = serializedObject['titulo'];
+	} catch( e ){
 		this.titulo = null;
+	}
+	
+	try {
+		this.autoria = serializedObject['autoria'];
+	} catch( e ){
 		this.autoria = null;
+	}
+	
+	try {
+		this.associacaoDoProduto = serializedObject['associacao-do-produto'];
+	} catch( e ){
 		this.associacaoDoProduto = null;
+	}
+	
+	try {
+		this.projetoAssociado = serializedObject['projeto-associado'];
+	} catch( e ){
 		this.projetoAssociado = null;
+	}
+	
+	try {
+		this.veiculacao = serializedObject['veiculacao'];
+	} catch( e ){
 		this.veiculacao = null;
+	}
+	
+	try {
+		this.local = serializedObject['local'];
+	} catch( e ){
 		this.local = null;
+	}
+	
+	try {
+		this.data = serializedObject['data'];
+	} catch( e ){
 		this.data = null;
+	}
+	
+	try {
+		this.anoDaPublicacao = serializedObject['ano-da-publicacao'];
+	} catch( e ){
 		this.anoDaPublicacao = null;
+	}
+	
+	try {
+		this.paginaInicial = serializedObject['pagina-inicial'];
+	} catch( e ){
 		this.paginaInicial = null;
+	}
+	
+	try {
+		this.paginaFinal = serializedObject['pagina-final'];
+	} catch( e ){
 		this.paginaFinal = null;
+	}
+	
+	try {
+		this.numeroDePaginas = serializedObject['numero-de-paginas'];
+	} catch( e ){
 		this.numeroDePaginas = null;
+	}
+	
+	try {
+		this.numeroDaPatente = serializedObject['numero-da-patente'];
+	} catch( e ){
 		this.numeroDaPatente = null;
+	}
+	
+	try {
+		this.editora = serializedObject['editora'];
+	} catch( e ){
 		this.editora = null;
 	}
 	

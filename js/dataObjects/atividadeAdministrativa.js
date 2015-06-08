@@ -9,13 +9,48 @@ function atividadeAdministrativa ( activityId, location, serializedObject, isCop
 	
 	try {
 		this.tabela = serializedObject['tabela'];
+	} catch( e ){
+		this.tabela = null;
+	}
+	
+	try {
 		this.cha = serializedObject['cha'];
-		this.periodo = serializedObject['periodo'];
+	} catch( e ){
+		this.cha = null;
+	}
+	
+	try {
 		this.descricao = serializedObject['descricao'];
+	} catch( e ){
+		this.descricao = null;
+	}
+	
+	try {
 		this.emissor = serializedObject['emissor'];
+	} catch( e ){
+		this.emissor = null;
+	}
+	
+	try {
 		this.orgaoServido = serializedObject['orgao-servido'];
+	} catch( e ){
+		this.orgaoServido = null;
+	}
+	
+	try {
 		this.portaria = serializedObject['portaria'];
-	} catch( e ){}
+	} catch( e ){
+		this.portaria = null;
+	}
+	
+	try {
+		this.periodo = serializedObject['periodo'];
+	} catch( e ){
+		this.periodo = {
+			'inicio' : null,
+			'fim' : null
+		}
+	}
 	
 	this.toJSON = function ( fullSave ) {
 		var jsonDict = {
