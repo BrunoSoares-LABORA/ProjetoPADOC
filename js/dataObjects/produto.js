@@ -119,13 +119,13 @@ function produto ( activityId, location, serializedObject, isCopy ) {
 	}
 	
 	this.getTableHeader = function() {
-		var tableHeader = "<tr class='table_header'>" +
+		var tableHeader = $( "<tr class='table_header'>" +
 			"<td>Título</td>" +
 			"<td>Projeto associado</td>" +
 			"<td>Local</td>" +
 			"<td>Data</td>" +
 			"<td width='80px'>Ações</td>" +
-		"</tr>";
+		"</tr>" );
 		
 		return tableHeader;
 	}
@@ -153,7 +153,11 @@ function produto ( activityId, location, serializedObject, isCopy ) {
 		editPage.find( "textarea[name='projeto_associado']" ).val( this.projetoAssociado );
 		editPage.find( "textarea[name='veiculacao']" ).val( this.veiculacao );
 		editPage.find( "input[name='local']" ).attr( "value", this.local );
-		editPage.find( "input[name='data']" ).attr( "value", this.data );
+		
+		var dataInput = editPage.find( "input[name='data']" );
+		dataInput.attr( "value", this.data );
+		setDataInput( dataInput );
+		
 		editPage.find( "input[name='ano_da_publicacao']" ).attr( "value", this.anoDaPublicacao );
 		editPage.find( "input[name='pagina_inicial']" ).attr( "value", this.paginaInicial );
 		editPage.find( "input[name='pagina_final']" ).attr( "value", this.paginaFinal );

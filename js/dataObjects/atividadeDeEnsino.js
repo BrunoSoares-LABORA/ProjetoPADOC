@@ -112,20 +112,20 @@ function atividadeDeEnsino ( activityId, location, serializedObject, isCopy ) {
 	}
 	
 	this.getTableHeader = function() {
-		var tableHeader = "<tr class='table_header'>" +
+		var tableHeader = $( "<tr class='table_header'>" +
 			"<td width='190px'>Curso</td>" +
 			"<td>Disciplina</td>" +
 			"<td>Ano/Semestre</td>" +
 			"<td>Número de alunos</td>" +
 			"<td width='100px'>Carga horária</td>" +
 			"<td width='80px'>Ações</td>" +
-		"</tr>";
+		"</tr>" );
 		
 		return tableHeader;
 	}
 	
 	this.getOverviewTableTr = function () {
-		var formTableTr = "<tr activityId='" + this.id + "'>" +
+		var formTableTr = $( "<tr activityId='" + this.id + "'>" +
 			"<td>" + this.curso + "</td>" +
 			"<td>" + this.disciplina + "</td>" +
 			"<td>" + this.ano + "/" + this.sem + "</td>" +
@@ -135,7 +135,7 @@ function atividadeDeEnsino ( activityId, location, serializedObject, isCopy ) {
 				this.getEditButton() +
 				this.getDeleteButton() +
 			"</td>" +
-		"</tr>";
+		"</tr>" );
 		
 		return formTableTr;
 	}
@@ -160,16 +160,16 @@ function atividadeDeEnsino ( activityId, location, serializedObject, isCopy ) {
 	this.save = function ( editPage ) {
 		var newCurso		= editPage.find( "input[name='curso']" ).attr( "value" );
 		var newDisciplina	= editPage.find( "input[name='disciplina']" ).attr( "value" );
-		var newCha			= editPage.find( "input[name='cha']" ).attr( "value" );
+		var newCha			= parseInt( editPage.find( "input[name='cha']" ).attr( "value" ) ) || 0;
 		var newAno			= editPage.find( "input[name='ano']" ).attr( "value" );
 		var newSem			= editPage.find( "input[name='sem']" ).attr( "value" );
 		var newTurma		= editPage.find( "input[name='turma']" ).attr( "value" );
 		var newSub			= editPage.find( "input[name='sub']" ).attr( "value" );
-		var newNumeroAlunos	= parseInt( editPage.find( "input[name='numero_alunos']" ).attr( "value" ) );
-		var newNumeroSub	= parseInt( editPage.find( "input[name='numero_sub']" ).attr( "value" ) );
-		var newCht			= parseInt( editPage.find( "input[name='cht']" ).attr( "value" ) );
-		var newChp			= parseInt( editPage.find( "input[name='chp']" ).attr( "value" ) );
-		var newChac			= editPage.find( "input[name='chac']" ).attr( "value" );
+		var newNumeroAlunos	= parseInt( editPage.find( "input[name='numero_alunos']" ).attr( "value" ) ) || 0;
+		var newNumeroSub	= parseInt( editPage.find( "input[name='numero_sub']" ).attr( "value" ) ) || 0;
+		var newCht			= parseInt( editPage.find( "input[name='cht']" ).attr( "value" ) ) || 0;
+		var newChp			= parseInt( editPage.find( "input[name='chp']" ).attr( "value" ) ) || 0;
+		var newChac			= parseInt( editPage.find( "input[name='chac']" ).attr( "value" ) ) || 0;
 		var newConjugada	= editPage.find( "input[name='conjugada']" ).prop( 'checked' );
 		
 		this.curso			= newCurso;

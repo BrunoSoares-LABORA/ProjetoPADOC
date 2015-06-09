@@ -1,47 +1,25 @@
 <script>
 	$(function() {
 		dataRequester = new dataRequest();
-		refreshDatePicker();
+		setDataInput( $( ".inputDate" ) );
 	});
 	
-	function refreshDatePicker() {
-		$( ".inputDate" ).datepicker( {
-			dateFormat: "dd/mm/yy",
-			showButtonPanel: true,
-			currentText: "Hoje",
-			closeText: "Fechar",
-			dayNamesMin: [ "Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab" ],
-			monthNames: [
-				"Janeiro",
-				"Fevereiro",
-				"Março",
-				"Abril",
-				"Maio",
-				"Junho",
-				"Julho",
-				"Agosto",
-				"Setembro",
-				"Outubro",
-				"Novembro",
-				"Dezembro"
-			]
-		} );
-		
-		$(".inputDate").mask("99/99/9999");
-	}
-	
 	function addMorePeriod() {
-		htmlPeriod = "<tr class='lastPeriod'>" +
-			"<td>Período:</td>" +
-			"<td><input class='inputDate' name='start_date'/></td>" +
-			"<td>-</td>" +
-			"<td><input class='inputDate' name='end_date'/></td>" +
-		"</tr>";
+		htmlPeriod = '<tr class="lastPeriod"> ' +
+			'<td width="150px" class="label">Período:</td> ' +
+			'<td width="290px"> ' +
+				'<input class="inputDate" name="start_date"/> ' +
+			'</td> ' +
+			'<td class="label" ><center>à</center></td> ' +
+			'<td width="290px"> ' +
+				'<input class="inputDate" name="end_date"/> ' +
+			'</td>' +
+		'</tr>';
 		
 		lastPeriod = $( ".lastPeriod" );
 		lastPeriod.removeClass( "lastPeriod" );
 		lastPeriod.after( htmlPeriod );
-		refreshDatePicker();
+		setDataInput( $( ".lastPeriod input.inputDate" ) );
 	}
 </script>
 
@@ -50,34 +28,33 @@
 </div>
 
 <form>
-	<table>
+	<table id='get_instructor_table'>
 		<tr>
-			<td>Usuário:</td>
-			<td colspan="3"><input type="text" name="username" value="aaa" id="username" /></td>
+			<td class='label'>Usuário:</td>
+			<td><input type="text" name="username" /></td>
+			<td class='label'>Matrícula SIAPE:</td>
+			<td><input type="text" name="siape" /></td>
 		</tr>
+		
 		<tr>
-			<td>Senha:</td>
+			<td class='label'>Senha:</td>
 			<td colspan="3"><input type="password" name="password" /></td>
 		</tr>
-		<tr>
-			<td>Matrícula SIAPE:</td>
-			<td colspan="3"><input type="text" name="siape" /></td>
-		</tr>
+		
 		<tr class="lastPeriod">
-			<td>Período:</td>
-			<td><input class="inputDate" name="start_date"/></td>
-			<td>-</td>
-			<td><input class="inputDate" name="end_date"/></td>
-		</tr>
-		<tr>
-			<td colspan="4">
-				<input type="button" value="Adicionar período" onclick="addMorePeriod()">
+			<td width='150px' class='label'>Período:</td>
+			<td width='290px'>
+				<input class="inputDate" name="start_date"/>
 			</td>
-		</tr>
-		<tr>
-			<td colspan="4">
-				<input type="button" value="Consultar" onclick="dataRequester.exec()">
+			<td class='label' ><center>à</center></td>
+			<td width='290px'>
+				<input class="inputDate" name="end_date"/>
 			</td>
 		</tr>
 	</table>
 </form>
+
+<div style="text-align: right;">
+	<a class="button small_button" href="javascript:void(0);" onclick="addMorePeriod()">Adicionar período</a>
+	<a class="button small_button" href="javascript:void(0);" onclick="dataRequester.exec()">Consultar</a>
+</div>

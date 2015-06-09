@@ -87,18 +87,18 @@ function atividadeEmProjeto ( activityId, location, serializedObject, isCopy ) {
 	}
 	
 	this.getTableHeader = function() {
-		var tableHeader = "<tr class='table_header'>" +
+		var tableHeader = $( "<tr class='table_header'>" +
 			"<td>Título do projeto</td>" +
 			"<td width='200px'>Tipo</td>" +
 			"<td width='100px'>Carga horária</td>" +
 			"<td width='80px'>Ações</td>" +
-		"</tr>";
+		"</tr>" );
 		
 		return tableHeader;
 	}
 	
 	this.getOverviewTableTr = function () {
-		var formTableTr = "<tr activityId='" + this.id + "'>" +
+		var formTableTr = $( "<tr activityId='" + this.id + "'>" +
 			"<td>" + this.tituloDoProjeto + "</td>" +
 			"<td>" + this.tipo + "</td>" +
 			"<td>" + this.cha + "</td>" +
@@ -106,7 +106,7 @@ function atividadeEmProjeto ( activityId, location, serializedObject, isCopy ) {
 				this.getEditButton() +
 				this.getDeleteButton() +
 			"</td>" +
-		"</tr>";
+		"</tr>" );
 		
 		return formTableTr;
 	}
@@ -120,8 +120,15 @@ function atividadeEmProjeto ( activityId, location, serializedObject, isCopy ) {
 		editPage.find( "input[name='funcao']" ).attr( "value", this.funcao );
 		editPage.find( "input[name='financiado']" ).attr( "value", this.financiado );
 		editPage.find( "input[name='cha']" ).attr( "value", this.cha );
-		editPage.find( "input[name='periodo_inicio']" ).attr( "value", this.periodo['inicio'] );
-		editPage.find( "input[name='periodo_fim']" ).attr( "value", this.periodo['fim'] );
+		
+		var periodoInicioInput = editPage.find( "input[name='periodo_inicio']" );
+		periodoInicioInput.attr( "value", this.periodo['inicio'] );
+		setDataInput( periodoInicioInput );
+		
+		var periodoFimInput = editPage.find( "input[name='periodo_fim']" );
+		periodoFimInput.attr( "value", this.periodo['fim'] );
+		setDataInput( periodoFimInput );
+		
 		editViewDiv.append( editPage );
 	}
 	
@@ -133,7 +140,7 @@ function atividadeEmProjeto ( activityId, location, serializedObject, isCopy ) {
 		var newSituacao				= editPage.find( "input[name='situacao']" ).attr( "value" );
 		var newFuncao				= editPage.find( "input[name='funcao']" ).attr( "value" );
 		var newFinanciado			= editPage.find( "input[name='financiado']" ).attr( "value" );
-		var newCha					= editPage.find( "input[name='cha']" ).attr( "value" );
+		var newCha					= parseInt( editPage.find( "input[name='cha']" ).attr( "value" ) ) || 0;
 		var newPeriodo				= {
 			'inicio' : editPage.find( "input[name='periodo_inicio']" ).attr( "value" ),
 			'fim' : editPage.find( "input[name='periodo_fim']" ).attr( "value" )

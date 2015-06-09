@@ -16,14 +16,21 @@
 				var className = String( activities_name[object] );
 				var tableId = String( "#" + object + "" );
 				
-				var activity_table = "<table id='" + object + "'></table>";
+				var headerObject = new window[className]();
+				var activity_table = "<div class='activities_title'>" + headerObject.title + "</div><table id='" + object + "'></table>";
 				$( "#activity_container" ).append( activity_table );
-				$( tableId ).append( new window[className]().getTableHeader() );
+				$( tableId ).append( headerObject.getTableHeader() );
+				$( tableId ).append( headerObject.getHaveNoActivityTr() );
 				
 				try {
 					periods_activities[object].forEach( function( item ) {
 						if( item.removed === false ) {
 							$( tableId ).append( item.getOverviewTableTr() );
+							
+							var noActivityTr = $( tableId + " tr[noActivityTr]" );
+							if( noActivityTr.is(':visible') ) {
+								noActivityTr.hide();
+							}
 						}
 					});
 				} catch( e2 ) {
@@ -37,6 +44,6 @@
 </script>
 
 <div class="title">
-	<span>Relatório de atividades</span>
+	<span>Relatório do período</span>
 </div>
 <div id="activity_container"></div>

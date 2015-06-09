@@ -36,6 +36,20 @@ function reloadData() {
 	loadActivities();
 }
 
+function showLoadedInstructorContainers( show ) {
+	if( show === true ) {
+		$( ".top_menu" ).show();
+		$( "#header" ).css( "margin-bottom", "0" );
+		$( ".vertical_menu a" ).show();
+		$( ".vertical_menu a:first-child" ).hide();
+	} else {
+		$( ".top_menu" ).hide();
+		$( "#header" ).css( "margin-bottom", "10px" );
+		$( ".vertical_menu a" ).hide();
+		$( ".vertical_menu a:first-child" ).show();
+	}
+}
+
 function loadStoredItens() {
 	storedKeys = [ "siape_docente", "last_page", "period_index" ];
 	
@@ -72,8 +86,6 @@ function definePeriod() {
 		$( "select[name='selected_period']" ).append( option );
 		periodId++;
 	});
-	
-	$( "#period_selector" ).show();
 }
 
 function loadInstructor() {
@@ -126,6 +138,8 @@ function loadActivities() {
 			console.log( "Atividade não encontrada no período do docente: " + activity );
 		}
 	}
+	
+	showLoadedInstructorContainers( true );
 }
 
 function displayHiddenMenu( menuId ) {
@@ -146,6 +160,32 @@ function closeSearch() {
 	sessionStorage.setItem( "period_index", JSON.stringify( 0 ) );
 	this["period_index"] = 0;
 	
-	$( "#period_selector" ).hide();
+	showLoadedInstructorContainers( false );
 	$( ".vertical_menu a:first-child" ).trigger( "click" );
+}
+
+function setDataInput( dataObject ) {
+	dataObject.datepicker( {
+		dateFormat: "dd/mm/yy",
+		showButtonPanel: true,
+		currentText: "Hoje",
+		closeText: "Fechar",
+		dayNamesMin: [ "Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab" ],
+		monthNames: [
+			"Janeiro",
+			"Fevereiro",
+			"Março",
+			"Abril",
+			"Maio",
+			"Junho",
+			"Julho",
+			"Agosto",
+			"Setembro",
+			"Outubro",
+			"Novembro",
+			"Dezembro"
+		]
+	} );
+		
+	dataObject.mask("99/99/9999");
 }

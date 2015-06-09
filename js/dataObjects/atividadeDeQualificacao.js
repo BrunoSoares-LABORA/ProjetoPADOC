@@ -52,13 +52,13 @@ function atividadeDeQualificacao ( activityId, location, serializedObject, isCop
 	}
 	
 	this.getTableHeader = function() {
-		var tableHeader = "<tr class='table_header'>" +
+		var tableHeader = $( "<tr class='table_header'>" +
 			"<td>Código da qualificação</td>" +
 			"<td>Período</td>" +
 			"<td>Descrição</td>" +
 			"<td width='100px'>Carga horária</td>" +
 			"<td width='80px'>Ações</td>" +
-		"</tr>";
+		"</tr>" );
 		
 		return tableHeader;
 	}
@@ -69,7 +69,7 @@ function atividadeDeQualificacao ( activityId, location, serializedObject, isCop
 			descricao += "...";
 		}
 		
-		var formTableTr = "<tr activityId='" + this.id + "'>" +
+		var formTableTr = $( "<tr activityId='" + this.id + "'>" +
 			"<td>" + this.tabela + "</td>" +
 			"<td>" + this.periodo['inicio'] + "-" + this.periodo['fim'] + "</td>" +
 			"<td>" + descricao + "</td>" +
@@ -78,7 +78,7 @@ function atividadeDeQualificacao ( activityId, location, serializedObject, isCop
 				this.getEditButton() +
 				this.getDeleteButton() +
 			"</td>" +
-		"</tr>";
+		"</tr>" );
 		
 		return formTableTr;
 	}
@@ -87,15 +87,22 @@ function atividadeDeQualificacao ( activityId, location, serializedObject, isCop
 		editPage.find( "textarea[name='descricao']" ).val( this.descricao );
 		editPage.find( "input[name='tabela']" ).attr( "value", this.tabela );
 		editPage.find( "input[name='cha']" ).attr( "value", this.cha );
-		editPage.find( "input[name='periodo_inicio']" ).attr( "value", this.periodo['inicio'] );
-		editPage.find( "input[name='periodo_fim']" ).attr( "value", this.periodo['fim'] );
+		
+		var periodoInicioInput = editPage.find( "input[name='periodo_inicio']" );
+		periodoInicioInput.attr( "value", this.periodo['inicio'] );
+		setDataInput( periodoInicioInput );
+		
+		var periodoFimInput = editPage.find( "input[name='periodo_fim']" );
+		periodoFimInput.attr( "value", this.periodo['fim'] );
+		setDataInput( periodoFimInput );
+		
 		editViewDiv.append( editPage );
 	}
 	
 	this.save = function ( editPage ) {
 		var newDescricao	= editPage.find( "textarea[name='descricao']" ).val();
 		var newTabela		= editPage.find( "input[name='tabela']" ).attr( "value" );
-		var newCha			= editPage.find( "input[name='cha']" ).attr( "value" );
+		var newCha			= parseInt( editPage.find( "input[name='cha']" ).attr( "value" ) ) || 0;
 		var newPeriodo		= {
 			'inicio' : editPage.find( "input[name='periodo_inicio']" ).attr( "value" ),
 			'fim' : editPage.find( "input[name='periodo_fim']" ).attr( "value" )

@@ -27,6 +27,7 @@ a {
 	width: 100%;
 	height: 80px;
 	border-bottom: 15px solid #3568a7;
+	margin-bottom: 10px;
 }
 
 .text_logo {
@@ -141,7 +142,6 @@ a {
 #period_selector {
 	float: right;
 	border-right: 0 !important;
-	display: none;
 }
 
 #period_selector:hover {
@@ -219,14 +219,41 @@ a {
 	color: #005a99;
 }
 
-#activity_container table {
+.activities_title {
+	width: 100%;
+	font-size: 14px;
+	font-weight: bold;
+	color: #005a99;
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+#get_instructor_table td {
+	text-align: left !important;
+}
+
+#get_instructor_table input {
+	border-radius: 3px;
+	border: 1px solid #ccc;
+	padding: 5px;
+	width: -webkit-calc(100% - 11px);
+	width: -moz-calc(100% - 11px);
+	width: calc(100% - 11px);
+}
+
+.small_button {
+	padding: 3px 8px !important;
+	margin: 0 !important;
+}
+
+#activity_container table, #get_instructor_table {
 	width: 100%;
 	border-spacing: 0;
 	border-collapse: separate;
     margin-bottom: 10px;
 }
 
-#activity_container table td {
+#activity_container table td, #get_instructor_table td {
 	padding: 5px;
 	text-align: center;
 	background-color: #f0f4f9;
@@ -239,23 +266,27 @@ a {
 	color: white;
 }
 
-#activity_container table tr:first-child td:first-child, .diff tr:first-child td:first-child {
+#activity_container table tr:first-child td:first-child, .diff tr:first-child td:first-child,
+#get_instructor_table tr:first-child td:first-child {
 	border-top-left-radius: 5px;
 }
 
-#activity_container table tr:first-child td:last-child, .diff tr:first-child td:last-child {
+#activity_container table tr:first-child td:last-child, .diff tr:first-child td:last-child,
+#get_instructor_table tr:first-child td:last-child {
 	border-top-right-radius: 5px;
 }
 
-#activity_container table tr:last-child td:first-child, .diff tr:last-child td:first-child {
+#activity_container table tr:last-child td:first-child, .diff tr:last-child td:first-child,
+#get_instructor_table tr:last-child td:first-child {
 	border-bottom-left-radius: 5px;
 }
 
-#activity_container table tr:last-child td:last-child, .diff tr:last-child td:last-child {
+#activity_container table tr:last-child td:last-child, .diff tr:last-child td:last-child,
+#get_instructor_table tr:last-child td:last-child {
 	border-bottom-right-radius: 5px;
 }
 
-#activity_container td.label {
+#activity_container td.label, #get_instructor_table td.label {
 	font-weight: bold;
 	background-color: #3568a7;
 	color: white;
@@ -661,9 +692,11 @@ a {
 }
 
 .inputDate {
-	width: 290px;
+	width: 290px !important;
+	padding: 0 !important;
+	border: 0 !important;
 	height: 26px;
 	background: url( "../images/datefield.png" ) no-repeat;
 	border: 0;
-	padding-left: 30px;
+	text-align: center;
 }

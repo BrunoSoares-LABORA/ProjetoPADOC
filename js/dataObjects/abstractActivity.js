@@ -7,6 +7,15 @@ function abstractActivity ( activityId, location ) {
 	this.removed = false;
 	this.isNew = false;
 	
+	this.getHaveNoActivityTr = function () {
+		var trSize = this.getTableHeader().find( "td" ).length;
+		var formTableTr = $( "<tr noActivityTr>" +
+			"<td colspan='" + trSize + "'>Você não possui nenhum(a) <b>" + this.title + "</b> cadastrado(a) neste período</td>" +
+		"</tr>" );
+		
+		return formTableTr;
+	}
+	
 	this.getActivityJsonName = function () {
 		var activityType;
 		for (var activity_name in  activities_name ) {
@@ -78,7 +87,7 @@ function abstractActivity ( activityId, location ) {
 			'activityType', 'id', 'title', 'removed', 'getEditButton', 'showEditView', 'getDiff', 'copy',
 			'toJSON', 'getTableHeader', 'getOverviewTableTr', 'createEditView', 'save', '_save', '_update',
 			'_delete', 'getDeleteButton', 'getActivityJsonName', 'defineObjectCommonAttr', 'isCopy', 'isNew',
-			'displayId', 'location'
+			'displayId', 'location', 'getHaveNoActivityTr'
 		];
 		
 		var changes = []
@@ -140,6 +149,10 @@ function abstractActivity ( activityId, location ) {
 			if( haveTable && !isAdded && !this.removed ) {
 				$( "#" + activityType ).append( this.getOverviewTableTr() );
 			}
+			
+			if( $( "#" + activityType + " tr[activityId]").length > 0 ) {
+				$( "#" + activityType + " tr[noActivityTr]").hide();
+			}
 		} catch( e ) {}
 		
 		// Update activity relatory row, if necessary.
@@ -173,6 +186,10 @@ function abstractActivity ( activityId, location ) {
 		try {
 			var activityType = this.getActivityJsonName();
 			$( "#" + activityType ).find( "tr[activityId='" + this.id + "']" ).remove();
+			
+			if( $( "#" + activityType + " tr[activityId]").length == 0 ) {
+				$( "#" + activityType + " tr[noActivityTr]").show();
+			}
 		} catch( e ) {}
 		
 		// Update isNew and removed relatory next rows, if necessary.
